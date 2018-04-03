@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banksystem;
+package banksystem.businessmodel;
 
 /**
  *
  * @author 11.02741-0
  */
-public class BankEmployee {
+public class BankEmployee extends BankClient{
     
 }

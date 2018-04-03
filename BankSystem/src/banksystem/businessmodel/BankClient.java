@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banksystem;
+package banksystem.businessmodel;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author 11.02741-0
  */
-public class BankAccount {
-    
-    private String agency;
-    private String accountNumber;
-    private int balance;
-    private 
-    
+public class BankClient {
+ 
+    private String name;
+    private Date birthDate;
+    private List<BankAccount> accountList;
     
 }
