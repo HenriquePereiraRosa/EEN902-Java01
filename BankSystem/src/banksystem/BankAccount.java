@@ -11,4 +11,10 @@ package banksystem;
  */
 public class BankAccount {
     
+    private String agency;
+    private String accountNumber;
+    private int balance;
+    private 
+    
+    
 }
