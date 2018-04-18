@@ -5,47 +5,61 @@
  */
 package banksystemjavafx;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
  * @author user
  */
 public class BankSystemJavaFX extends Application {
+        
+    @Override
+    public void start(Stage stage) throws Exception {
+        
+        
+        Parent root = FXMLLoader.load(getClass().getResource("screen/Login.fxml"));        
+        Scene scene = new Scene(root);
+        
+        //stage.getIcons().add(new Image(getClass().getResource("/resources/savage.png").toExternalForm()));
+        stage.setScene(scene);
+        stage.setTitle("BankSystem");
+        stage.show();
+        
+        stage.setOnCloseRequest((WindowEvent event) -> {
+            try {
+                stop();
+//                stage.notify();
+//                stage.close();
+                Platform.exit();
+                System.exit(0);
+            } catch (Exception ex) {
+                Logger.getLogger(BankSystemJavaFX.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }); 
+        
+    }
+    
     
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void stop( ) throws Exception {
+        // ToDo: fechar conexão serial
+        System.out.println("App.stop(): called!");
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        //launch(args);
+        Application.launch(BankSystemJavaFX.class, (java.lang.String[])null);
     }
     
 }
