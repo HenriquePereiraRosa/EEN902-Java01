@@ -5,15 +5,12 @@
  */
 package banksystemjavafx;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import banksystemjavafx.screen.ScreensController;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  *
@@ -21,29 +18,26 @@ import javafx.stage.WindowEvent;
  */
 public class BankSystemJavaFX extends Application {
         
+    public static String screen1ID = "main";
+    public static String screen1File = "/resources/screen/login/ScreenLogin.fxml";
+    public static String screen2ID = "balance";
+    public static String screen2File = "/screen/balance/ScreenBalance.fxml";
+
     @Override
     public void start(Stage stage) throws Exception {
+        ScreensController mainContainer = new ScreensController();
+        mainContainer.loadScreen(BankSystemJavaFX.screen1ID, BankSystemJavaFX.screen1File);
+        mainContainer.loadScreen(BankSystemJavaFX.screen2ID, BankSystemJavaFX.screen2File);
         
+        mainContainer.setScreen(screen1ID);
         
-        Parent root = FXMLLoader.load(getClass().getResource("screen/Login.fxml"));        
+        Group root = new Group();
+        root.getChildren().addAll(mainContainer);
         Scene scene = new Scene(root);
-        
-        //stage.getIcons().add(new Image(getClass().getResource("/resources/savage.png").toExternalForm()));
-        stage.setScene(scene);
+        stage.getIcons().add(new Image(getClass().getResource("/resources/img/logo.png").toExternalForm()));
         stage.setTitle("BankSystem");
-        stage.show();
-        
-        stage.setOnCloseRequest((WindowEvent event) -> {
-            try {
-                stop();
-//                stage.notify();
-//                stage.close();
-                Platform.exit();
-                System.exit(0);
-            } catch (Exception ex) {
-                Logger.getLogger(BankSystemJavaFX.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }); 
+        stage.setScene(scene);
+        stage.show();  
         
     }
     

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="561.0" prefWidth="772.0" style="-fx-background-color: #2D3447;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="banksystemjavafx.screen.balance.BalanceController">
+   <children>
+      <Label layoutX="70.0" layoutY="15.0" text="Bank" textFill="#56a5ff">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="122.0" layoutY="15.0" text="System" textFill="#d7d7d7">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgBack" fitHeight="42.0" fitWidth="37.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#toScreen1" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 180;">
+         <image>
+            <Image url="@../../../resources/img/arrow.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="46.0" layoutY="72.0" text="Transação Destino" textFill="#d7d7d7">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="46.0" layoutY="113.0" prefHeight="25.0" prefWidth="188.0" promptText="CPF Destino" />
+      <PasswordField layoutX="46.0" layoutY="156.0" prefHeight="25.0" prefWidth="188.0" promptText="Password" />
+      <TextField layoutX="47.0" layoutY="198.0" prefHeight="25.0" prefWidth="188.0" promptText="Conta" />
+      <ComboBox layoutX="46.0" layoutY="242.0" prefHeight="25.0" prefWidth="188.0" promptText="Tipo" />
+      <TextField layoutX="47.0" layoutY="281.0" prefHeight="25.0" prefWidth="188.0" promptText="Valor" />
+      <Button fx:id="btnLogin" layoutX="51.0" layoutY="333.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Confirmar Transação" textAlignment="CENTER" textFill="WHITE" />
+      <TextField layoutX="278.0" layoutY="39.0" prefHeight="25.0" prefWidth="223.0" promptText="Pesquisa..." />
+      <Button fx:id="btnLogin1" layoutX="550.0" layoutY="38.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Adicionar Cliente" textAlignment="CENTER" textFill="WHITE" />
+      <AnchorPane layoutX="255.0" layoutY="72.0" prefHeight="480.0" prefWidth="470.0" AnchorPane.bottomAnchor="9.0" AnchorPane.topAnchor="72.0">
+         <children>
+            <SplitPane dividerPositions="0.3117154811715481" layoutX="23.0" orientation="VERTICAL" prefHeight="346.0" prefWidth="447.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="426.0">
+                     <children>
+                        <TableView editable="true" layoutX="2.0" layoutY="-5.0" prefHeight="273.0" prefWidth="310.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Cliente" />
+                            <TableColumn prefWidth="75.0" text="Conta" />
+                              <TableColumn prefWidth="75.0" text="Saldo" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <Button fx:id="btnLogin11" layoutX="14.0" layoutY="277.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="114.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Salvar Alterações" textAlignment="CENTER" textFill="WHITE" />
+                        <Button fx:id="btnLogin111" layoutX="309.0" layoutY="277.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="114.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Deletar Conta" textAlignment="CENTER" textFill="WHITE" />
+                        <TextArea layoutX="184.0" layoutY="26.0" prefHeight="237.0" prefWidth="239.0" promptText="Historico de Transações" scrollTop="1.0" wrapText="true" />
+                        <Label layoutX="14.0" layoutY="55.0" text="Titular" />
+                        <TextField layoutX="14.0" layoutY="72.0" promptText="Nome" />
+                        <TextField layoutX="14.0" layoutY="122.0" promptText="123.456.789-01" />
+                        <Label layoutX="14.0" layoutY="105.0" text="CPF" />
+                        <Label layoutX="14.0" layoutY="157.0" text="Conta" />
+                        <PasswordField layoutX="14.0" layoutY="229.0" prefHeight="25.0" prefWidth="149.0" promptText="Password" />
+                        <Label layoutX="14.0" layoutY="212.0" text="Senha" />
+                        <ImageView fx:id="imgDownArrow" fitHeight="37.0" fitWidth="14.0" layoutX="216.0" onMouseClicked="#minimizeDetails" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 90;">
+                           <image>
+                              <Image url="@../../../resources/img/arrow.png" />
+                           </image>
+                        </ImageView>
+                        <TextField layoutX="14.0" layoutY="174.0" promptText="1234-5" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="imgBack1" fitHeight="27.0" fitWidth="33.0" layoutX="508.0" layoutY="38.0" onMouseClicked="#toLoginScreen" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../resources/img/search.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
