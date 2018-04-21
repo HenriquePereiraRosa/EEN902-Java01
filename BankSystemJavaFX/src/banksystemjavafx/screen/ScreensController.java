@@ -5,7 +5,7 @@
  */
 package banksystemjavafx.screen;
 
-import banksystemjavafx.BankSystemJavaFX;
+import banksystemjavafx.model.BankManager;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +28,8 @@ import javafx.util.Duration;
 public class ScreensController extends StackPane {
     
     private HashMap<String, Node> screens = new HashMap<>(); 
+    
+    BankManager manager;
 
     public ScreensController() {
         super();
@@ -76,25 +78,25 @@ public class ScreensController extends StackPane {
             if(!getChildren().isEmpty()) {      // id there is more than one screen
                 Timeline fadeOut = new Timeline(
                     new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                    new KeyFrame(new Duration(800), new EventHandler<ActionEvent>() {
+                    new KeyFrame(new Duration(400), new EventHandler<ActionEvent>() {
                         
                         @Override
                         public void handle(ActionEvent ae){ 
                             getChildren().remove(0);                    // Remove the displayed screen
                             getChildren().add(0, screens.get(name));    // Add a new one
                             Timeline fadeIn = new Timeline(
-                                new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                                new KeyFrame(new Duration(800), new KeyValue(opacity, 0.8)));
+                                new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.1)),
+                                new KeyFrame(new Duration(400), new KeyValue(opacity, 1.0)));
                             fadeIn.play();
                         }
-                    }, new KeyValue(opacity, 0.0)));
+                    }, new KeyValue(opacity, 0.1)));
                 fadeOut.play();
             } else { // No one else has been displayed, then just show
-                setOpacity(0.0);
+                setOpacity(0.1);
                 getChildren().add(screens.get(name));
                 Timeline fadeIn = new Timeline(
-                    new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                    new KeyFrame(new Duration(800), new KeyValue(opacity, 0.8)));
+                    new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.1)),
+                    new KeyFrame(new Duration(400), new KeyValue(opacity, 1.0)));
                 fadeIn.play();
             }
             return true;

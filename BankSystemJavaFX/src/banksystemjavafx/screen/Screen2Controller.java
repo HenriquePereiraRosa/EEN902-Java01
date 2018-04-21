@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -22,9 +23,12 @@ public class Screen2Controller implements Initializable, ControlledScreen {
     
     ScreensController myScreenController;
     
+    @FXML
+    private TableView tbvAccountsTable;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        tbvAccountsTable.setItems(value);
     }    
     
     @Override

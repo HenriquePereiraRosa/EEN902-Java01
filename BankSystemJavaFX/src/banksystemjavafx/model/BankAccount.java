@@ -14,36 +14,25 @@ import java.util.List;
  */
 public class BankAccount {
     
-    private String agency;
     private String accountNumber;
-    private int balance;
+    private String type;
     private List<Integer> extract;
 
-    public BankAccount(String agency, String accountNumber, int balance, List<Integer> extract) {
-        this.agency = agency;
+    public BankAccount(String accountNumber, String type, int balance) {
         this.accountNumber = accountNumber;
-        this.balance = balance;
+        this.type = type;
+        this.extract = new ArrayList<>(balance);
+    }
+
+    public BankAccount(String accountNumber) {
+        this.accountNumber = accountNumber;
+        this.extract = new ArrayList<>();
+    }
+
+    public BankAccount(String accountNumber, String type, List<Integer> extract) {
+        this.accountNumber = accountNumber;
+        this.type = type;
         this.extract = extract;
-    }
-
-    public BankAccount(String agency, String accountNumber, int balance) {
-        this.agency = agency;
-        this.accountNumber = accountNumber;
-        this.balance = balance;
-    }
-
-    public BankAccount(String agency, String accountNumber, List<Integer> extract) {
-        this.agency = agency;
-        this.accountNumber = accountNumber;
-        this.extract = extract;
-    }
-
-    public String getAgency() {
-        return agency;
-    }
-
-    public void setAgency(String agency) {
-        this.agency = agency;
     }
 
     public String getAccountNumber() {
@@ -54,12 +43,24 @@ public class BankAccount {
         this.accountNumber = accountNumber;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    
     public int getBalance() {
+        Integer balance = 0;
+        for(Integer item : extract)
+            balance += item;        
         return balance;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public void transfer(int value) {
+        this.extract.add(value);
     }
 
     public List<Integer> getExtract() {
@@ -69,12 +70,5 @@ public class BankAccount {
     public void setExtract(List<Integer> extract) {
         this.extract = extract;
     }
-    
-    
-    
-    
-    
-    
-    
     
 }

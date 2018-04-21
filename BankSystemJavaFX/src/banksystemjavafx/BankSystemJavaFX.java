@@ -5,6 +5,7 @@
  */
 package banksystemjavafx;
 
+import banksystemjavafx.model.BankManager;
 import banksystemjavafx.screen.ScreensController;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -25,11 +26,16 @@ public class BankSystemJavaFX extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        
+        BankSystemJavaFX bank = new BankSystemJavaFX();
+        
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(BankSystemJavaFX.screen1ID, BankSystemJavaFX.screen1File);
         mainContainer.loadScreen(BankSystemJavaFX.screen2ID, BankSystemJavaFX.screen2File);
         
         mainContainer.setScreen(screen1ID);
+        
+        bank.start();
         
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
@@ -54,6 +60,11 @@ public class BankSystemJavaFX extends Application {
     public static void main(String[] args) {
         launch(args);
 //        Application.launch(BankSystemJavaFX.class, (java.lang.String[])null);
+    }
+
+    private void start() {
+        
+//        BankManager manager = new BankManager("Henrique Rosa", "37214999803", "pass", "0001", "01", 1000);
     }
     
 }

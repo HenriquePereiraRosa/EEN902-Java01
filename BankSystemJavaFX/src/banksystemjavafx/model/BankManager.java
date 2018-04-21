@@ -5,10 +5,43 @@
  */
 package banksystemjavafx.model;
 
+import java.util.List;
+
 /**
  *
  * @author user
  */
-public class BankManager extends BankClient{
+public class BankManager extends BankEmployee {
+    
+    public BankManager(String name, String CPF, String password, List<BankAccount> accountList) {
+        super(name, CPF, password, accountList);
+    }    
+    
+    public BankManager(String name, String CPF, String password, BankAccount account) {
+        super(name, CPF, password, account);
+    } 
+    
+    public BankManager(String name, String CPF, String password, String accountNumber, String type, int balance) {
+        super(name, CPF, password, accountNumber, type, balance);
+    }
+            
+    private void addClient(BankEmployee employee) {
+        clientes.add(employee);
+    }
+    
+    private void removeClient(BankEmployee employee) {
+        clientes.remove(employee);
+    }
+    
+    private void addClients(List<BankEmployee> employees) {
+        for(BankEmployee employee : employees)
+        clientes.add(employee);
+    }
+    
+    private void removeClients(List<BankEmployee> employees) {
+        for(BankEmployee employee: employees)
+        clientes.remove(employee);
+    }
+    
     
 }
