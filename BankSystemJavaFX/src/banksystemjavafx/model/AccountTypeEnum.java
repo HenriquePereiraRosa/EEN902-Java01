@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banksystem.businessmodel;
+package banksystemjavafx.model;
 
 /**
  *
  * @author user
  */
-public class BankManager extends BankClient{
-    
+public enum AccountTypeEnum {
+    Corrente, Poupanca, DI, Tesouro;        
 }

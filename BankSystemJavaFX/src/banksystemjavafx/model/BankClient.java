@@ -36,7 +36,7 @@ public class BankClient implements Serializable {
         this.accountList.add(account);
     }
     
-    public BankClient(String name, String CPF, String password, String accountNumber, String type, int balance ) {
+    public BankClient(String name, String CPF, String password, String accountNumber, int type, int balance ) {
         this.name = name;
         this.CPF = CPF;
         this.password = password;
@@ -85,7 +85,7 @@ public class BankClient implements Serializable {
         this.accountList = accountList;
     }
     
-    public void addAccount(String agency, String accountNumber, String type, int initialValue) {
+    public void addAccount(String agency, String accountNumber, int type, int initialValue) {
         BankAccount account = new BankAccount(accountNumber, type, initialValue);
         accountList.add(account);
     }

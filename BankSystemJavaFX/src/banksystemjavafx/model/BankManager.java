@@ -21,7 +21,7 @@ public class BankManager extends BankEmployee {
         super(name, CPF, password, account);
     } 
     
-    public BankManager(String name, String CPF, String password, String accountNumber, String type, int balance) {
+    public BankManager(String name, String CPF, String password, String accountNumber, int type, int balance) {
         super(name, CPF, password, accountNumber, type, balance);
     }
             

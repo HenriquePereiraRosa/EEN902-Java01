@@ -38,10 +38,10 @@
       <TextField layoutX="47.0" layoutY="281.0" prefHeight="25.0" prefWidth="188.0" promptText="Valor" />
       <Button fx:id="btnConfirm" layoutX="51.0" layoutY="333.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Confirmar Transação" textAlignment="CENTER" textFill="WHITE" />
       <TextField layoutX="278.0" layoutY="39.0" prefHeight="25.0" prefWidth="223.0" promptText="Pesquisa..." />
-      <Button fx:id="btnAdd" layoutX="550.0" layoutY="38.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Adicionar Cliente" textAlignment="CENTER" textFill="WHITE" />
-      <AnchorPane layoutX="255.0" layoutY="72.0" prefHeight="480.0" prefWidth="470.0" AnchorPane.bottomAnchor="9.0" AnchorPane.topAnchor="72.0">
+      <Button fx:id="btnAdd" layoutX="597.0" layoutY="37.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Adicionar Cliente" textAlignment="CENTER" textFill="WHITE" />
+      <AnchorPane layoutX="255.0" layoutY="72.0" prefHeight="519.0" prefWidth="527.0" AnchorPane.bottomAnchor="9.0" AnchorPane.topAnchor="72.0">
          <children>
-            <SplitPane dividerPositions="0.3117154811715481" layoutX="23.0" orientation="VERTICAL" prefHeight="346.0" prefWidth="447.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.3117154811715481" layoutX="23.0" orientation="VERTICAL" prefHeight="519.0" prefWidth="507.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="0.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="426.0">
                      <children>
@@ -54,25 +54,28 @@
                         </TableView>
                      </children>
                   </AnchorPane>
-                <AnchorPane prefHeight="100.0" prefWidth="160.0">
+                <AnchorPane minHeight="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <Button fx:id="btnSave" layoutX="14.0" layoutY="277.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="114.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Salvar Alterações" textAlignment="CENTER" textFill="WHITE" />
-                        <Button fx:id="btnDelete" layoutX="309.0" layoutY="277.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="114.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Deletar Conta" textAlignment="CENTER" textFill="WHITE" />
-                        <TextArea layoutX="184.0" layoutY="26.0" prefHeight="237.0" prefWidth="239.0" promptText="Historico de Transações" scrollTop="1.0" wrapText="true" />
+                        <Button fx:id="btnSave" layoutX="14.0" layoutY="306.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="114.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Salvar Alterações" textAlignment="CENTER" textFill="WHITE" />
+                        <Button fx:id="btnDelete" layoutX="377.0" layoutY="306.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="114.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Deletar Conta" textAlignment="CENTER" textFill="WHITE" />
+                        <TextArea layoutX="184.0" layoutY="26.0" prefHeight="268.0" prefWidth="306.0" promptText="Historico de Transações" scrollTop="1.0" wrapText="true" />
                         <Label layoutX="14.0" layoutY="55.0" text="Titular" />
-                        <TextField layoutX="14.0" layoutY="72.0" promptText="Nome" />
-                        <TextField layoutX="14.0" layoutY="122.0" promptText="123.456.789-01" />
+                        <TextField fx:id="txtDetailsName" layoutX="14.0" layoutY="72.0" promptText="Nome" />
+                        <TextField fx:id="txtDetailsCPF" layoutX="14.0" layoutY="122.0" promptText="123.456.789-01" />
                         <Label layoutX="14.0" layoutY="105.0" text="CPF" />
-                        <Label layoutX="14.0" layoutY="157.0" text="Conta" />
-                        <PasswordField layoutX="14.0" layoutY="229.0" prefHeight="25.0" prefWidth="149.0" promptText="Password" />
-                        <Label layoutX="14.0" layoutY="212.0" text="Senha" />
+                        <Label layoutX="14.0" layoutY="197.0" text="Conta" />
+                        <PasswordField fx:id="txtDetailsPassowrd" layoutX="14.0" layoutY="269.0" prefHeight="25.0" prefWidth="149.0" promptText="Password" />
+                        <Label layoutX="14.0" layoutY="252.0" text="Senha" />
                         <ImageView fx:id="imgDown" fitHeight="37.0" fitWidth="14.0" layoutX="216.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 90;">
                            <image>
                               <Image url="@../../../resources/img/arrow.png" />
                            </image>
                         </ImageView>
-                        <TextField layoutX="14.0" layoutY="174.0" promptText="1234-5" />
-                        <ComboBox fx:id="cbxDetailsAccountType" layoutX="14.0" layoutY="26.0" prefHeight="25.0" prefWidth="149.0" promptText="Tipo" />
+                        <TextField fx:id="txtDetailsAccount" layoutX="14.0" layoutY="214.0" promptText="1234-5" />
+                        <ComboBox fx:id="cbDetailsUserType" layoutX="14.0" layoutY="26.0" prefHeight="25.0" prefWidth="149.0" promptText="Tipo de Usuário" />
+                        <Label layoutX="184.0" layoutY="311.0" text="Saldo: " />
+                        <Label fx:id="lblSc2Saldo" layoutX="223.0" layoutY="311.0" text="R$ 00,00" />
+                        <ComboBox fx:id="cbDetailsAccountType" layoutX="14.0" layoutY="164.0" prefHeight="25.0" prefWidth="149.0" promptText="Tipo de Conta" />
                      </children>
                   </AnchorPane>
               </items>

@@ -6,16 +6,34 @@
 package banksystemjavafx.screen;
 
 import banksystemjavafx.BankSystemJavaFX;
+import banksystemjavafx.model.BankClient;
+import banksystemjavafx.model.BankEmployee;
 import banksystemjavafx.model.BankManager;
+import banksystemjavafx.model.RememberMe;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -25,11 +43,18 @@ import javafx.scene.input.MouseEvent;
 public class Screen1Controller implements Initializable, ControlledScreen {
 
     ScreensController myScreenController;
-    BankSystemJavaFX bank = new BankSystemJavaFX();
+    BankClient client;
+    BankEmployee employee;
     BankManager manager;
+    Set<BankClient> clients;
+    Set<BankEmployee> employees;
+    Set<BankManager> managers;
     
     @FXML
     private Button btnLogin;
+    
+    @FXML
+    private CheckBox ckbRememberMe;
     
     @FXML
     private TextField txtSc1CPF;
@@ -39,6 +64,7 @@ public class Screen1Controller implements Initializable, ControlledScreen {
     
     @FXML
     private Label lblUnknownCPF, lblUnknownPassword;
+    
     
     @Override
     public void setScreenParent(ScreensController screenPage) {
@@ -94,16 +120,21 @@ public class Screen1Controller implements Initializable, ControlledScreen {
         this.lblUnknownPassword = lblUnknownPassword;
     }
     
-    
-    
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        manager = new BankManager("Henrique Rosa", "37214999803", "pass", "0001", "01", 1000);
+        String name, CPF, pasword;
+        
+        manager = new BankManager("Henrique Rosa", "37214999803", "pass", "0001", 0, 1000);
+        clients = new HashSet<>();
+        
+        //loadRememberMe();
     }    
     
     
+    
     @FXML
-    private void toScreen2(MouseEvent event) {
+    private void toScreen2(ActionEvent event) {
         if((validadeCPF() == true) && (validatePassword() == true) ){
             lblUnknownCPF.setVisible(false);
             lblUnknownPassword.setVisible(false);
@@ -112,10 +143,24 @@ public class Screen1Controller implements Initializable, ControlledScreen {
         } else {
             lblUnknownCPF.setVisible(true);
             lblUnknownPassword.setVisible(true);
+        }        
+    }
+    
+    @FXML
+    private void rememberMe(ActionEvent event) {
+        
+        if(txtSc1CPF.getText().isEmpty() && txtSc1Password.getText().isEmpty()) {
+            lblUnknownCPF.setVisible(true);
+            lblUnknownPassword.setVisible(true);
+        } else { 
+            lblUnknownCPF.setVisible(false);
+            lblUnknownPassword.setVisible(false);
+            saveRememberMe();            
         }
         
     }
-
+    
+    
     private boolean validadeCPF() {
         
         if(manager.getCPF().equals(txtSc1CPF.getText())) return true;
@@ -125,6 +170,44 @@ public class Screen1Controller implements Initializable, ControlledScreen {
     private boolean validatePassword() {
         if(manager.getPassword().equals(txtSc1Password.getText())) return true;
         return false;
+    }
+
+    private void loadRememberMe() {
+        
+        try{
+            URL url = getClass().getResource(BankSystemJavaFX.rememberMeFile);
+            System.out.println("BankSystemJavaFX.rememberMeFile: " + BankSystemJavaFX.rememberMeFile);
+            System.out.println("URL: " + url);
+            File file = new File(url.getPath());
+            ObjectInputStream ois = new ObjectInputStream(
+                new BufferedInputStream(new FileInputStream(file)));
+
+            RememberMe remember = (RememberMe)ois.readObject();
+
+            txtSc1CPF.setText(remember.getUser());
+            txtSc1Password.setText(remember.getPassword());
+            ois.close();
+                
+        } catch (ClassNotFoundException | IOException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void saveRememberMe() {
+        
+        try{
+            URL url = getClass().getResource(BankSystemJavaFX.rememberMeFile);
+            File file = new File(BankSystemJavaFX.rememberMeFile);
+            ObjectOutputStream oos = new ObjectOutputStream(
+                new BufferedOutputStream(new FileOutputStream(file)));
+            
+            RememberMe remember = new RememberMe(txtSc1CPF.getText(), txtSc1Password.getText());
+            oos.writeObject(remember);
+            oos.close();
+                
+        } catch (IOException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

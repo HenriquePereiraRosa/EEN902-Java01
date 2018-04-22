@@ -6,6 +6,7 @@
 package banksystemjavafx.screen;
 
 import banksystemjavafx.model.BankManager;
+import java.io.File;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,7 @@ public class ScreensController extends StackPane {
     private HashMap<String, Node> screens = new HashMap<>(); 
     
     BankManager manager;
+    File file;
 
     public ScreensController() {
         super();

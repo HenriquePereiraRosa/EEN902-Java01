@@ -5,7 +5,6 @@
  */
 package banksystemjavafx;
 
-import banksystemjavafx.model.BankManager;
 import banksystemjavafx.screen.ScreensController;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -23,6 +22,12 @@ public class BankSystemJavaFX extends Application {
     public static String screen1File = "/resources/screen/login/Screen1.fxml";
     public static String screen2ID = "balance";
     public static String screen2File = "/resources/screen/balance/Screen2.fxml";
+    
+    
+    public static String clientDataPath = "/resources/data/clients/clients.data";
+    public static String emplyeeDataPath = "/resources/data/employees/employees.data";
+    public static String managerDataPath = "/resources/data/managers/managers.data";
+    public static String rememberMeFile = "C:\\Dev\\aula\\EEN902-Java01\\BankSystemJavaFX\\src\\resources\\data\\rememberMe.data";
 
     @Override
     public void start(Stage stage) throws Exception {

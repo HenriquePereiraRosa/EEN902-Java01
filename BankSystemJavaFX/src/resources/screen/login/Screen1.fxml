@@ -23,13 +23,13 @@
       </Label>
       <TextField fx:id="txtSc1CPF" layoutX="329.0" layoutY="235.0" prefHeight="25.0" prefWidth="188.0" promptText="CPF" />
       <PasswordField fx:id="txtSc1Password" layoutX="329.0" layoutY="298.0" prefHeight="25.0" prefWidth="188.0" promptText="Password" />
-      <CheckBox layoutX="302.0" layoutY="408.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="7.0" textFill="#d7d7d7" />
+      <CheckBox fx:id="ckbRememberMe" layoutX="302.0" layoutY="408.0" mnemonicParsing="false" onAction="#rememberMe" prefHeight="17.0" prefWidth="7.0" textFill="#d7d7d7" />
       <Label layoutX="323.0" layoutY="407.0" text="Remember me" textFill="#d7d7d7">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnLogin" layoutX="452.0" layoutY="404.0" mnemonicParsing="false" onMouseClicked="#toScreen2" prefHeight="25.0" prefWidth="69.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Login" textAlignment="CENTER" textFill="WHITE" />
+      <Button fx:id="btnLogin" layoutX="452.0" layoutY="404.0" mnemonicParsing="false" onAction="#toScreen2" prefHeight="25.0" prefWidth="69.0" style="-fx-background-color: #2D3447; -fx-border-color: #FFFFFF; -fx-border-radius: 0.5em;" text="Login" textAlignment="CENTER" textFill="WHITE" />
       <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="278.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../resources/img/userlogin.png" />
@@ -40,17 +40,17 @@
             <Image url="@../../../resources/img/lock.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblForgotPassowrd" layoutX="366.0" layoutY="359.0" text="Forgot password?" textFill="#d7d7d7">
+      <Label fx:id="lblForgotPassowrd" layoutX="369.0" layoutY="347.0" text="Forgot password?" textFill="#d7d7d7">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblUnknownPassword" layoutX="366.0" layoutY="328.0" text="Senha inválida" textFill="#ff1e1e" visible="false">
+      <Label fx:id="lblUnknownPassword" layoutX="324.0" layoutY="327.0" text="Senha inválida ou desconhecida" textFill="#ff1e1e" visible="false">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblUnknownCPF" layoutX="368.0" layoutY="265.0" text="CPF inválido" textFill="#ff1e1e" visible="false">
+      <Label fx:id="lblUnknownCPF" layoutX="331.0" layoutY="265.0" text="CPF inválido ou desconhecido" textFill="#ff1e1e" visible="false">
          <font>
             <Font size="14.0" />
          </font>

@@ -15,10 +15,10 @@ import java.util.List;
 public class BankAccount {
     
     private String accountNumber;
-    private String type;
+    private int type;
     private List<Integer> extract;
 
-    public BankAccount(String accountNumber, String type, int balance) {
+    public BankAccount(String accountNumber, int type, int balance) {
         this.accountNumber = accountNumber;
         this.type = type;
         this.extract = new ArrayList<>(balance);
@@ -29,7 +29,7 @@ public class BankAccount {
         this.extract = new ArrayList<>();
     }
 
-    public BankAccount(String accountNumber, String type, List<Integer> extract) {
+    public BankAccount(String accountNumber, int type, List<Integer> extract) {
         this.accountNumber = accountNumber;
         this.type = type;
         this.extract = extract;
@@ -43,11 +43,11 @@ public class BankAccount {
         this.accountNumber = accountNumber;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
