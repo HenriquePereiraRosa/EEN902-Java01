@@ -21,8 +21,8 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSc1CPF" layoutX="329.0" layoutY="235.0" prefHeight="25.0" prefWidth="188.0" promptText="CPF" text="admin" />
-      <PasswordField fx:id="txtSc1Password" layoutX="329.0" layoutY="298.0" prefHeight="25.0" prefWidth="188.0" promptText="Password" text="admin" />
+      <TextField fx:id="txtSc1CPF" layoutX="329.0" layoutY="235.0" prefHeight="25.0" prefWidth="188.0" promptText="CPF" />
+      <PasswordField fx:id="txtSc1Password" layoutX="329.0" layoutY="298.0" prefHeight="25.0" prefWidth="188.0" promptText="Password" />
       <CheckBox fx:id="ckbRememberMe" layoutX="302.0" layoutY="408.0" mnemonicParsing="false" onAction="#rememberMe" prefHeight="17.0" prefWidth="7.0" textFill="#d7d7d7" />
       <Label layoutX="323.0" layoutY="407.0" text="Remember me" textFill="#d7d7d7">
          <font>
