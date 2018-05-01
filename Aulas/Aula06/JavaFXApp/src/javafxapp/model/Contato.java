@@ -5,73 +5,80 @@
  */
 package javafxapp.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author 11.02741-0
  */
 public class Contato {
     
-    private String nome;
-    private String sobrenome;
-    private String cidade;
-    private String estado;
-    private String cep;
-    private String dtNasc;
+    private final StringProperty nome;
+    private final StringProperty sobrenome;
+    private final StringProperty cidade;
+    private final StringProperty estado;
+    private final StringProperty cep;
+    private final StringProperty dtNasc;
 
     public Contato(String nome, String sobrenome, String cidade, String estado, String cep, String dtNasc) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.cep = cep;
-        this.dtNasc = dtNasc;
+        this.nome = new SimpleStringProperty(nome);
+        this.sobrenome = new SimpleStringProperty(sobrenome);
+        this.cidade = new SimpleStringProperty(cidade);
+        this.estado = new SimpleStringProperty(estado);
+        this.cep = new SimpleStringProperty(cep);
+        this.dtNasc = new SimpleStringProperty(dtNasc);
     }
 
     public String getNome() {
-        return nome;
+        return nome.get();
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome.set(nome);
     }
 
     public String getSobrenome() {
-        return sobrenome;
+        return sobrenome.get();
     }
 
     public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+        this.sobrenome.set(sobrenome);
     }
 
     public String getCidade() {
-        return cidade;
+        return cidade.get();
     }
 
     public void setCidade(String cidade) {
-        this.cidade = cidade;
+        this.cidade.set(cidade);
     }
 
     public String getEstado() {
-        return estado;
+        return estado.get();
     }
 
     public void setEstado(String estado) {
-        this.estado = estado;
+        this.estado.set(estado);
     }
 
     public String getCep() {
-        return cep;
+        return cep.get();
     }
 
     public void setCep(String cep) {
-        this.cep = cep;
+        this.cep.set(cep);
     }
 
     public String getDtNasc() {
-        return dtNasc;
+        return dtNasc.get();
     }
 
     public void setDtNasc(String dtNasc) {
-        this.dtNasc = dtNasc;
+        this.dtNasc.set(dtNasc);
     }
 }

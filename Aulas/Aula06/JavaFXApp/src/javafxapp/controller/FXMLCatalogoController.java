@@ -38,10 +38,11 @@ public class FXMLCatalogoController implements Initializable {
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tableContato.setEditable(true);
         columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         columnSobrenome.setCellValueFactory(new PropertyValueFactory<>("sobrenome"));
         tableContato.setItems(getItems());
-        tableContato.getColumns().addAll(columnNome,columnSobrenome);
+        tableContato.getColumns().addAll(columnNome, columnSobrenome);
     }    
     
     public ObservableList<Contato> getItems() {
