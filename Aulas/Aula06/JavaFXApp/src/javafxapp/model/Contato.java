@@ -5,10 +5,6 @@
  */
 package javafxapp.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -41,6 +37,10 @@ public class Contato {
     public void setNome(String nome) {
         this.nome.set(nome);
     }
+    
+    public StringProperty nomeProperty() {
+        return this.nome;
+    }
 
     public String getSobrenome() {
         return sobrenome.get();
@@ -48,6 +48,10 @@ public class Contato {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome.set(sobrenome);
+    }
+    
+    public StringProperty sobrenomeProperty() {
+        return this.sobrenome;
     }
 
     public String getCidade() {

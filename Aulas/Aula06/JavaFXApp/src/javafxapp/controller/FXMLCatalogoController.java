@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafxapp.model.Contato;
 
 /**
@@ -38,11 +37,11 @@ public class FXMLCatalogoController implements Initializable {
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tableContato.setEditable(true);
-        columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        columnSobrenome.setCellValueFactory(new PropertyValueFactory<>("sobrenome"));
+        columnNome.setCellValueFactory(cellData -> cellData.getValue().nomeProperty());
+        columnSobrenome.setCellValueFactory(cellData -> cellData.getValue().sobrenomeProperty());
         tableContato.setItems(getItems());
         tableContato.getColumns().addAll(columnNome, columnSobrenome);
+        System.out.println("COTATOS:" + contatos.toArray().toString());
     }    
     
     public ObservableList<Contato> getItems() {
