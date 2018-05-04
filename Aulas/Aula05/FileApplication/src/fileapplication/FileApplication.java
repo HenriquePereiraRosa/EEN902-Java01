@@ -51,7 +51,7 @@ public class FileApplication {
 //            bf.close();
                     
         } catch(IOException ex){
-            Logger.getLogger(FileApplication.class.getName()).log(Level.SEVERE, null, ex));
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         } 
     }
 
