@@ -29,19 +29,19 @@ public class FXMLCatalogoController implements Initializable {
             labelEstado, labelCep, labelDataNasc;
     
     @FXML
-    private TableView<Contato> tableContato = new TableView<>();
+    private TableView<Contato> tableContato;
     
     @FXML
-    private TableColumn<Contato, String> columnNome = new TableColumn<>("Nome");
-    private TableColumn<Contato, String> columnSobrenome = new TableColumn<>("Sobrenome");
+    private TableColumn<Contato, String> columnNome;
+    
+    @FXML
+    private TableColumn<Contato, String> columnSobrenome;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         columnNome.setCellValueFactory(cellData -> cellData.getValue().nomeProperty());
         columnSobrenome.setCellValueFactory(cellData -> cellData.getValue().sobrenomeProperty());
         tableContato.setItems(getItems());
-        tableContato.getColumns().addAll(columnNome, columnSobrenome);
-        System.out.println("COTATOS:" + contatos.toArray().toString());
     }    
     
     public ObservableList<Contato> getItems() {
