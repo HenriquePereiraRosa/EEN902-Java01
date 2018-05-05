@@ -42,6 +42,7 @@ public class FXMLCatalogoController implements Initializable {
         columnNome.setCellValueFactory(cellData -> cellData.getValue().nomeProperty());
         columnSobrenome.setCellValueFactory(cellData -> cellData.getValue().sobrenomeProperty());
         tableContato.setItems(getItems());
+        tableContato.setEditable(true);
     }    
     
     public ObservableList<Contato> getItems() {
