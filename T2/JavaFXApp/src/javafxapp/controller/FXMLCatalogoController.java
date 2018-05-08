@@ -22,7 +22,7 @@ import javafxapp.model.Contato;
  */
 public class FXMLCatalogoController implements Initializable {
     
-    private ObservableList<Contato> contatos = FXCollections.observableArrayList();
+    private ObservableList<Contato> clientes = FXCollections.observableArrayList();
         
     @FXML
     private Label labelNome, labelSobrenome, labelCidade, 
@@ -35,7 +35,13 @@ public class FXMLCatalogoController implements Initializable {
     private TableColumn<Contato, String> columnNome;
     
     @FXML
-    private TableColumn<Contato, String> columnSobrenome;
+    private TableColumn<Contato, String> columnCPF;
+    
+    @FXML
+    private TableColumn<Contato, String> columnAccountNumber;
+    
+    @FXML
+    private TableColumn<Contato, String> columnHierarchy;
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -46,17 +52,20 @@ public class FXMLCatalogoController implements Initializable {
     }    
     
     public ObservableList<Contato> getItems() {
-        contatos.add(new Contato("Henrique 1", "Rosa", "São Paulo", "SP", "08285140", "22/08/1990"));
-        contatos.add(new Contato("Henrique 2", "Rosa", "Rio Janeiro", "RJ", "08285140", "22/08/1991"));
-        contatos.add(new Contato("Henrique 3", "Rosa", "Belo Horizont", "MG", "08285140", "22/08/1992"));
-        contatos.add(new Contato("Henrique 4", "Rosa", "São Caetano do Sul", "SP", "08285140", "22/08/1993"));
-        contatos.add(new Contato("Henrique 5", "Rosa", "Diadema", "SP", "08285140", "22/08/1994"));
-        contatos.add(new Contato("Henrique 6", "Rosa", "Osasco", "SP", "08285140", "22/08/1994"));
-        contatos.add(new Contato("Henrique 7", "Rosa", "Guarulhos", "SP", "08285140", "22/08/1995"));
-        contatos.add(new Contato("Henrique 8", "Rosa", "São Paulo", "SP", "08285140", "22/08/1996"));
-        contatos.add(new Contato("Henrique 9", "Rosa", "São Paulo", "SP", "08285140", "22/08/1997"));
-        contatos.add(new Contato("Henrique 10", "Rosa", "São Paulo", "SP", "08285140", "22/08/1998"));
-        return contatos;
+        clientes.add(new Contato("Henrique 1", "Rosa", "São Paulo", "SP", "08285140", "22/08/1990"));
+        clientes.add(new Contato("Henrique 2", "Rosa", "Rio Janeiro", "RJ", "08285140", "22/08/1991"));
+        clientes.add(new Contato("Henrique 3", "Rosa", "Belo Horizont", "MG", "08285140", "22/08/1992"));
+        clientes.add(new Contato("Henrique 4", "Rosa", "São Caetano do Sul", "SP", "08285140", "22/08/1993"));
+        clientes.add(new Contato("Henrique 5", "Rosa", "Diadema", "SP", "08285140", "22/08/1994"));
+        clientes.add(new Contato("Henrique 6", "Rosa", "Osasco", "SP", "08285140", "22/08/1994"));
+        clientes.add(new Contato("Henrique 7", "Rosa", "Guarulhos", "SP", "08285140", "22/08/1995"));
+        clientes.add(new Contato("Henrique 8", "Rosa", "São Paulo", "SP", "08285140", "22/08/1996"));
+        clientes.add(new Contato("Henrique 9", "Rosa", "São Paulo", "SP", "08285140", "22/08/1997"));
+        clientes.add(new Contato("Henrique 10", "Rosa", "São Paulo", "SP", "08285140", "22/08/1998"));
+        
+        clientes.sort(cmprtr);
+        
+        return clientes;
     }
     
 }
