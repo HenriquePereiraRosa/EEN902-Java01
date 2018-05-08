@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javafxapp.model;
+package javafxapp.model.BankAccount;
 
 import banksystem.model.Enum.AccountTypeEnum;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  *
@@ -15,15 +18,15 @@ import java.util.List;
  */
 public class BankAccount {
     
-    private String accountNumber;
-    private AccountTypeEnum type;
-    private List<Integer> extract;
+    private final SimpleStringProperty accountNumber;
+    private final ObjectProperty<AccountTypeEnum> type;
+    private final ListProperty<Integer> extract;
 
     
     public BankAccount(String accountNumber, AccountTypeEnum type, int balance) {
-        this.accountNumber = accountNumber;
-        this.type = type;
-        this.extract = new ArrayList<>(balance);
+        this.accountNumber = new SimpleStringProperty(accountNumber);
+        this.type = new ObjectProperty<AccountTypeEnum>(type);
+        this.extract = new ListProperty<>(balance);
     }
 
     public BankAccount(String accountNumber, AccountTypeEnum type) {

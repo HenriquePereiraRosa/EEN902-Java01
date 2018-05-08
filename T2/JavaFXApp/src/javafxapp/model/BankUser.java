@@ -5,10 +5,13 @@
  */
 package javafxapp.model;
 
+import javafxapp.model.BankAccount.BankAccount;
 import banksystem.model.Enum.AccountTypeEnum;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -16,10 +19,10 @@ import java.util.ArrayList;
  */
 public class BankUser implements Serializable {
  
-    private String name;
-    private String CPF;
-    private int hierarchy;
-    private String password;
+    private StringProperty name;
+    private StringProperty CPF;
+    private IntegerProperty hierarchy;
+    private StringProperty password;
     private List<BankAccount> accounts;
 
     public BankUser() {
