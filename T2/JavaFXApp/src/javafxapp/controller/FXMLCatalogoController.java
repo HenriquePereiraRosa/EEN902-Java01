@@ -63,7 +63,7 @@ public class FXMLCatalogoController implements Initializable {
         clientes.add(new BankUser("Henrique 9", "Rosa", "São Paulo", "SP", "08285140", "22/08/1997"));
         clientes.add(new BankUser("Henrique 10", "Rosa", "São Paulo", "SP", "08285140", "22/08/1998"));
         
-        clientes.sort(cmprtr);
+        clientes.sort();
         
         return clientes;
     }

@@ -5,11 +5,9 @@
  */
 package javafxapp.model.BankAccount;
 
-import banksystem.model.Enum.AccountTypeEnum;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -19,69 +17,49 @@ import javafx.beans.property.SimpleStringProperty;
 public class BankAccount {
     
     private final SimpleStringProperty accountNumber;
-    private final ObjectProperty<AccountTypeEnum> type;
-    private final ListProperty<Integer> extract;
+    private final ListProperty<Double> extract;
 
     
-    public BankAccount(String accountNumber, AccountTypeEnum type, int balance) {
+    public BankAccount(String accountNumber, Double balance) {
         this.accountNumber = new SimpleStringProperty(accountNumber);
-        this.type = new ObjectProperty<AccountTypeEnum>(type);
-        this.extract = new ListProperty<>(balance);
+        this.extract = new SimpleListProperty<>();
+        this.extract.add(balance);
     }
 
-    public BankAccount(String accountNumber, AccountTypeEnum type) {
-        this.accountNumber = accountNumber;
-        this.type = type;
-        this.extract = new ArrayList<>(0);
-    }
-    
     public BankAccount(String accountNumber) {
-        this.accountNumber = accountNumber;
-        this.setType(AccountTypeEnum.CORRENTE);
-        this.extract = new ArrayList<>(0);
+        this.accountNumber = new SimpleStringProperty(accountNumber);
+        this.extract = new SimpleListProperty<>();
+        this.extract.add(0.0);
     }
-
-    public BankAccount(String accountNumber, AccountTypeEnum type, List<Integer> extract) {
-        this.accountNumber = accountNumber;
-        this.type = type;
-        this.extract = extract;
-    }
-
     
     public String getAccountNumber() {
-        return accountNumber;
+        return accountNumber.get();
     }
 
     public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
+        this.accountNumber.set(accountNumber);
     }
 
-    public AccountTypeEnum getType() {
-        return type;
-    }
-
-    public void setType(AccountTypeEnum type) {
-        this.type = type;
-    }
-
-    
-    public int getBalance() {
-        Integer balance = 0;
-        for(Integer item : extract)
-            balance += item;        
+    public Double getBalance() {
+        Double balance = 0.0;
+        List<Double> extractTemp = getExtract();
+        for(Double item : extractTemp)
+            balance += item;
         return balance;
     }
 
-    public void deposit(int value) {
+    public void deposit(Double value) {
         this.extract.add(value);
     }
 
-    public List<Integer> getExtract() {
-        return extract;
+    public List<Double> getExtract() {
+        return extract.get();
     }
 
-    public void setExtract(List<Integer> extract) {
-        this.extract = extract;
+    public void setExtract(List<Double> extract) {
+        List<Double> extractTemp = extract;
+        this.extract.clear();
+        this.extract.addAll(extractTemp);
     }
         
 }

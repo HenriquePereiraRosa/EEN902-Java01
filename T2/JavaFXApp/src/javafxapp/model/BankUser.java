@@ -6,11 +6,14 @@
 package javafxapp.model;
 
 import javafxapp.model.BankAccount.BankAccount;
-import banksystem.model.Enum.AccountTypeEnum;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -23,80 +26,77 @@ public class BankUser implements Serializable {
     private StringProperty CPF;
     private IntegerProperty hierarchy;
     private StringProperty password;
-    private List<BankAccount> accounts;
-
-    public BankUser() {
-        this.name = null;
-        this.CPF = null;
-        this.password = null;
-    }
+    private ListProperty<BankAccount> accounts;
+    
     
     public BankUser(BankUser another) {
-        this.name = another.getName();
-        this.CPF = another.getCPF();
-        this.password = another.getPassword();
-        this.hierarchy = another.getHierarchy();
-        this.accounts = another.getAccountList();
+        this.name = new SimpleStringProperty(another.getName());
+        this.CPF = new SimpleStringProperty(another.getCPF());
+        this.password = new SimpleStringProperty(another.getPassword());
+        this.hierarchy = new SimpleIntegerProperty(another.getHierarchy());
+        this.accounts = new SimpleListProperty<>();
+        this.accounts.addAll(another.getAccountList());
     }
     
     public BankUser(String name, String CPF, String password, List<BankAccount> accountList) {
-        this.name = name;
-        this.CPF = CPF;
-        this.password = password;
-        this.accounts = accountList;
+        this.name = new SimpleStringProperty(name);
+        this.CPF = new SimpleStringProperty(CPF);
+        this.password = new SimpleStringProperty(password);
+        this.accounts = new SimpleListProperty<>();
+        this.accounts.addAll(accountList);
     }
     
     public BankUser(String name, String CPF, int hierarchy, String password, BankAccount account) {
-        this.name = name;
-        this.CPF = CPF;
-        this.hierarchy = hierarchy;
-        this.password = password;
-        this.accounts = new ArrayList<>();
+        this.name = new SimpleStringProperty(name);
+        this.CPF = new SimpleStringProperty(CPF);
+        this.hierarchy = new SimpleIntegerProperty(hierarchy);
+        this.password = new SimpleStringProperty(password);
+        this.accounts = new SimpleListProperty<>();
         this.accounts.add(account);
     }
     
-    public BankUser(String name, String CPF, int hierarchy, String password, String accountNumber, AccountTypeEnum type, int balance ) {
-        this.name = name;
-        this.CPF = CPF;
-        this.hierarchy = hierarchy;
-        this.password = password;
+    public BankUser(String name, String CPF, int hierarchy, String password, String accountNumber, Double balance ) {
+        this.name = new SimpleStringProperty(name);
+        this.CPF = new SimpleStringProperty(CPF);
+        this.hierarchy = new SimpleIntegerProperty(hierarchy);
+        this.password = new SimpleStringProperty(password);
         
-        BankAccount account = new BankAccount(accountNumber, type, balance);
-        this.accounts = new ArrayList<>();
+        BankAccount account = new BankAccount(accountNumber, balance);
+        this.accounts = new SimpleListProperty<>();
         accounts.add(account);
     }
     
     public BankUser(String name, String CPF, int hierarchy, String password) {
-        this.name = name;
-        this.CPF = CPF;
-        this.hierarchy = hierarchy;
-        this.password = password;
-        this.accounts = new ArrayList<>();
+        this.name = new SimpleStringProperty(name);
+        this.CPF = new SimpleStringProperty(CPF);
+        this.hierarchy = new SimpleIntegerProperty(hierarchy);
+        this.password = new SimpleStringProperty(password);
+        this.accounts = new SimpleListProperty<>();
     }
 
     public String getName() {
-        return name;
+        return name.get();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     public String getCPF() {
-        return CPF;
+        return CPF.get();
     }
 
     public void setCPF(String CPF) {
-        this.CPF = CPF;
+        this.CPF.set(CPF);
     }
 
     public int getHierarchy() {
-        return hierarchy;
+        return hierarchy.get();
     }
     
     public String getHierarchyToString() {
         String string = "";
-        switch(this.hierarchy) {
+        switch(this.hierarchy.get()) {
             case 0:
                 string = "Cliente";
                 break;
@@ -113,25 +113,24 @@ public class BankUser implements Serializable {
     }
 
     public void setHierarchy(int hierarchy) {
-        this.hierarchy = hierarchy;
+        this.hierarchy.set(hierarchy);
     }
 
-    
-    
     public String getPassword() {
-        return password;
+        return password.get();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password.set(password);
     }
 
     public List<BankAccount> getAccountList() {
-        return accounts;
+        return accounts.subList(0, accounts.size());
     }
 
     public void setAccountList(List<BankAccount> accountList) {
-        this.accounts = accountList;
+        this.accounts.clear();
+        this.accounts.addAll(accountList);
     }
     
     public void addAccount(String agency, String accountNumber, AccountTypeEnum type, int initialValue) {
