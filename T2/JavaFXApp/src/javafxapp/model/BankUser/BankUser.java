@@ -3,98 +3,123 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javafxapp.model;
+package javafxapp.model.BankUser;
 
-import javafxapp.model.BankAccount.BankAccount;
-import java.io.Serializable;
-import java.util.List;
 import java.util.ArrayList;
+import javafxapp.model.BankAccount.BankAccount;
+import java.util.List;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
  * @author 11.02741-0
  */
-public class BankUser implements Serializable {
+public class BankUser {
  
-    private StringProperty name;
-    private StringProperty CPF;
-    private IntegerProperty hierarchy;
-    private StringProperty password;
-    private ListProperty<BankAccount> accounts;
+    private final StringProperty name;
+    private final StringProperty cpf;
+    private final IntegerProperty hierarchy;
+    private final StringProperty password;
+    private final ListProperty<BankAccount> accounts;
     
     
     public BankUser(BankUser another) {
         this.name = new SimpleStringProperty(another.getName());
-        this.CPF = new SimpleStringProperty(another.getCPF());
+        this.cpf = new SimpleStringProperty(another.getCpf());
         this.password = new SimpleStringProperty(another.getPassword());
         this.hierarchy = new SimpleIntegerProperty(another.getHierarchy());
         this.accounts = new SimpleListProperty<>();
         this.accounts.addAll(another.getAccountList());
     }
     
-    public BankUser(String name, String CPF, String password, List<BankAccount> accountList) {
+    public BankUser(String name, String cpf, Integer hierarchy, String password, List<BankAccount> accountList) {
         this.name = new SimpleStringProperty(name);
-        this.CPF = new SimpleStringProperty(CPF);
-        this.password = new SimpleStringProperty(password);
-        this.accounts = new SimpleListProperty<>();
-        this.accounts.addAll(accountList);
-    }
-    
-    public BankUser(String name, String CPF, int hierarchy, String password, BankAccount account) {
-        this.name = new SimpleStringProperty(name);
-        this.CPF = new SimpleStringProperty(CPF);
-        this.hierarchy = new SimpleIntegerProperty(hierarchy);
-        this.password = new SimpleStringProperty(password);
-        this.accounts = new SimpleListProperty<>();
-        this.accounts.add(account);
-    }
-    
-    public BankUser(String name, String CPF, int hierarchy, String password, String accountNumber, Double balance ) {
-        this.name = new SimpleStringProperty(name);
-        this.CPF = new SimpleStringProperty(CPF);
+        this.cpf = new SimpleStringProperty(cpf);
         this.hierarchy = new SimpleIntegerProperty(hierarchy);
         this.password = new SimpleStringProperty(password);
         
-        BankAccount account = new BankAccount(accountNumber, balance);
-        this.accounts = new SimpleListProperty<>();
-        accounts.add(account);
+        ObservableList<BankAccount> observableList = FXCollections.observableArrayList(accountList);
+        this.accounts = new SimpleListProperty<>(observableList);
     }
     
-    public BankUser(String name, String CPF, int hierarchy, String password) {
+    public BankUser(String name, String cpf, Integer hierarchy, String password, BankAccount account) {
         this.name = new SimpleStringProperty(name);
-        this.CPF = new SimpleStringProperty(CPF);
+        this.cpf = new SimpleStringProperty(cpf);
+        this.hierarchy = new SimpleIntegerProperty(hierarchy);
+        this.password = new SimpleStringProperty(password);
+        
+        List<BankAccount> list = new ArrayList<>();
+        list.add(account);
+        ObservableList<BankAccount> observableList = FXCollections.observableArrayList(list);
+        this.accounts = new SimpleListProperty<>(observableList);
+    }
+    
+    public BankUser(String name, String cpf, Integer hierarchy, String password, String accountNumber, Integer type, Double balance ) {
+        this.name = new SimpleStringProperty(name);
+        this.cpf = new SimpleStringProperty(cpf);
+        this.hierarchy = new SimpleIntegerProperty(hierarchy);
+        this.password = new SimpleStringProperty(password);
+        
+        BankAccount account = new BankAccount(accountNumber, type, balance);
+        List<BankAccount> list = new ArrayList<>();
+        list.add(account);
+        ObservableList<BankAccount> observableList = FXCollections.observableArrayList(list);
+        this.accounts = new SimpleListProperty<>(observableList);
+    }
+    
+    public BankUser(String name, String cpf, Integer hierarchy, String password) {
+        this.name = new SimpleStringProperty(name);
+        this.cpf = new SimpleStringProperty(cpf);
         this.hierarchy = new SimpleIntegerProperty(hierarchy);
         this.password = new SimpleStringProperty(password);
         this.accounts = new SimpleListProperty<>();
     }
-
+    
+    public StringProperty nameProperty() {
+        return this.name;
+    }
+    
+    public StringProperty cpfProperty() {
+        return this.cpf;
+    }
+    
+    public StringBinding accountNumberProperty() {
+        return this.accounts.asString();
+    }
+    
+    public IntegerProperty hierarchyProperty() {
+        return this.hierarchy;
+    }
+    
     public String getName() {
         return name.get();
     }
-
+    
     public void setName(String name) {
         this.name.set(name);
     }
 
-    public String getCPF() {
-        return CPF.get();
+    public String getCpf() {
+        return cpf.get();
+    }
+    
+    public void setCpf(String cpf) {
+        this.cpf.set(cpf);
     }
 
-    public void setCPF(String CPF) {
-        this.CPF.set(CPF);
-    }
-
-    public int getHierarchy() {
+    public Integer getHierarchy() {
         return hierarchy.get();
     }
     
-    public String getHierarchyToString() {
+    public String getHierarchyAsString() {
         String string = "";
         switch(this.hierarchy.get()) {
             case 0:
@@ -112,7 +137,7 @@ public class BankUser implements Serializable {
         return string;
     }
 
-    public void setHierarchy(int hierarchy) {
+    public void setHierarchy(Integer hierarchy) {
         this.hierarchy.set(hierarchy);
     }
 
@@ -133,7 +158,7 @@ public class BankUser implements Serializable {
         this.accounts.addAll(accountList);
     }
     
-    public void addAccount(String agency, String accountNumber, AccountTypeEnum type, int initialValue) {
+    public void addAccount(String agency, String accountNumber, Integer type, Double initialValue) {
         BankAccount account = new BankAccount(accountNumber, type, initialValue);
         accounts.add(account);
     }
@@ -159,7 +184,7 @@ public class BankUser implements Serializable {
         return false;
     }
     
-    public boolean deposit(String accountNumber, int value){
+    public boolean deposit(String accountNumber, Double value){
         BankAccount account = searchAccount(accountNumber);
         if(account != null) {
             account.deposit(value);
@@ -178,41 +203,24 @@ public class BankUser implements Serializable {
         return null;
     }
     
-    private String getAccountListToString() {
-        List<BankAccount> list = this.getAccountList();
-        String string = "";
-        for(BankAccount account : list){
-            string = "CONTA: " + account.getAccountNumber() + '\n';
-            switch(account.getType()) {
-                case CORRENTE:
-                    string += "TIPO: Corrente \n";
-                    break;
-                    
-                case POUPANCA:
-                    string += "TIPO: Poupança \n";
-                    break;
-                    
-                case DI:
-                    string += "TIPO: DI \n";
-                    break;
-                    
-                case TESOURO:
-                    string += "TIPO: Tesouro \n";
-                    break;
-            }
-        }
-        
-        return string;
-    }
     
     @Override
     public String toString() {
-        String string = this.getName() + '\n' + this.getCPF() + '\n' 
-                + this.getPassword() +'\n' + this.getHierarchyToString() + '\n' +
+        String string = this.getName() + '\n' + this.getCpf() + '\n' 
+                + this.getPassword() +'\n' + this.getHierarchyAsString() + '\n' +
                 this.getAccountListToString();
         
         return string;
     }
 
     
+    private String getAccountListToString() {
+        List<BankAccount> list = this.getAccountList();
+        String string = "";
+        for(BankAccount account : list){
+            string = "CONTA: " + account.getAccountNumber() +
+                    "TIPO: " + account.toString() + '\n';
+        }
+        return string;
+    }
 }

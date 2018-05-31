@@ -14,7 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafxapp.model.BankUser;
+import javafxapp.model.BankAccount.BankAccount;
+import javafxapp.model.BankUser.BankUser;
 
 /**
  *
@@ -22,50 +23,73 @@ import javafxapp.model.BankUser;
  */
 public class FXMLCatalogoController implements Initializable {
     
-    private ObservableList<BankUser> clientes = FXCollections.observableArrayList();
+    private final ObservableList<BankUser> clients = FXCollections.observableArrayList();
         
     @FXML
-    private Label labelNome, labelSobrenome, labelCidade, 
-            labelEstado, labelCep, labelDataNasc;
-    
+    private Label labelNome;
+
+    @FXML
+    private Label labelSobrenome;
+
+    @FXML
+    private Label labelCidade;
+
+    @FXML
+    private Label labelEstado;
+
+    @FXML
+    private Label labelCep;
+
+    @FXML
+    private Label labelDataNasc;
     @FXML
     private TableView<BankUser> tableBankUser;
     
     @FXML
-    private TableColumn<BankUser, String> columnNome;
+    private TableColumn<BankUser, String> columnName;
     
     @FXML
-    private TableColumn<BankUser, String> columnCPF;
+    private TableColumn<BankUser, String> columnCpf;
     
     @FXML
     private TableColumn<BankUser, String> columnAccountNumber;
     
     @FXML
     private TableColumn<BankUser, String> columnHierarchy;
-        
+    
+            
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        columnNome.setCellValueFactory(cellData -> cellData.getValue().nomeProperty());
-        columnCPF.setCellValueFactory(cellData -> cellData.getValue().sobrenomeProperty());
+        columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        columnCpf.setCellValueFactory(cellData -> cellData.getValue().cpfProperty());
+        columnAccountNumber.setCellValueFactory(cellData -> cellData.getValue().accountNumberProperty());
+        columnHierarchy.setCellValueFactory(cellData -> cellData.getValue().hierarchyProperty().asString());
         tableBankUser.setItems(getItems());
         tableBankUser.setEditable(true);
+        
+        labelNome.setText(tableBankUser.getColumns().get(0).getCellData(0).toString());
+        labelSobrenome.setText(tableBankUser.getColumns().get(1).getCellData(0).toString());
+        labelCidade.setText(tableBankUser.getColumns().get(2).getCellData(0).toString());
+        labelEstado.setText(tableBankUser.getColumns().get(3).getCellData(0).toString());
     }    
     
     public ObservableList<BankUser> getItems() {
-        clientes.add(new BankUser("Henrique 1", "Rosa", "São Paulo", "SP", "08285140", "22/08/1990"));
-        clientes.add(new BankUser("Henrique 2", "Rosa", "Rio Janeiro", "RJ", "08285140", "22/08/1991"));
-        clientes.add(new BankUser("Henrique 3", "Rosa", "Belo Horizont", "MG", "08285140", "22/08/1992"));
-        clientes.add(new BankUser("Henrique 4", "Rosa", "São Caetano do Sul", "SP", "08285140", "22/08/1993"));
-        clientes.add(new BankUser("Henrique 5", "Rosa", "Diadema", "SP", "08285140", "22/08/1994"));
-        clientes.add(new BankUser("Henrique 6", "Rosa", "Osasco", "SP", "08285140", "22/08/1994"));
-        clientes.add(new BankUser("Henrique 7", "Rosa", "Guarulhos", "SP", "08285140", "22/08/1995"));
-        clientes.add(new BankUser("Henrique 8", "Rosa", "São Paulo", "SP", "08285140", "22/08/1996"));
-        clientes.add(new BankUser("Henrique 9", "Rosa", "São Paulo", "SP", "08285140", "22/08/1997"));
-        clientes.add(new BankUser("Henrique 10", "Rosa", "São Paulo", "SP", "08285140", "22/08/1998"));
+        clients.add(new BankUser("Henrique 1", "123.456.789-01", 0, "password", new BankAccount("0001", 0, 0.0)));
+        clients.add(new BankUser("Henrique 2", "123.456.789-02", 1, "password", "0002", 0, 1800.0));
+        clients.add(new BankUser("Henrique 3", "123.456.789-03", 2, "password", "0003", 0, 10000.0));
+        clients.add(new BankUser("Henrique 4", "123.456.789-04", 0, "password", "0004", 0, 1000.0));
+        clients.add(new BankUser("Henrique 5", "123.456.789-05", 1, "password", "0005", 0, 100.0));
+        clients.add(new BankUser("Henrique 6", "123.456.789-06", 2, "password", "0006", 0, 500000.0));
+        clients.add(new BankUser("Henrique 7", "123.456.789-08", 0, "password", "0007", 0, 800.0));
+        clients.add(new BankUser("Henrique 8", "123.456.789-08", 1, "password", "0008", 0, 8000.0));
+        clients.add(new BankUser("Henrique 9", "123.456.789-09", 2, "password", "0009", 0, 900.0));
+        clients.add(new BankUser("Henrique 10", "123.456.789-10", 0, "password", "0010", 0, 600.0));
+        clients.add(new BankUser("Henrique 11", "123.456.789-11", 1, "password", "0011", 0, 2367.0));
+        clients.add(new BankUser("Henrique 12", "123.456.789-12", 1, "password", "0012", 2, 2367.0));
         
-        clientes.sort();
+//        clients.sort();
         
-        return clientes;
+        return clients;
     }
     
 }
