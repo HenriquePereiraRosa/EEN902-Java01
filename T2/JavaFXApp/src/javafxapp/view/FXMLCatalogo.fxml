@@ -42,22 +42,22 @@
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="155.0" minWidth="10.0" prefWidth="49.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="256.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label text="Nome:" />
-                        <Label text="CPF:" GridPane.rowIndex="1" />
-                        <Label text="Conta:" textAlignment="RIGHT" GridPane.rowIndex="2" />
-                        <Label text="Hierarquia:" GridPane.rowIndex="3" />
+                        <Label text="Nome:" GridPane.halignment="RIGHT" />
+                        <Label text="CPF:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+                        <Label text="Conta:" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <Label text="Hierarquia:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                         <Label fx:id="labelNome" GridPane.columnIndex="1" />
-                        <Label fx:id="labelSobrenome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="labelCidade" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="labelEstado" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="labelCpf" GridPane.columnIndex="3" />
+                        <Label fx:id="labelAccountType" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="labelHierarchy" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                     <Button layoutX="246.0" layoutY="443.0" mnemonicParsing="false" text="Novo" />

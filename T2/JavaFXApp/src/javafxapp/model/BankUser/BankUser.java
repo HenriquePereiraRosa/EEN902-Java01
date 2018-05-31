@@ -95,8 +95,26 @@ public class BankUser {
         return this.accounts.asString();
     }
     
-    public IntegerProperty hierarchyProperty() {
-        return this.hierarchy;
+    public StringProperty numberOfAccountsProperty() {
+        return new SimpleStringProperty(this.accounts.sizeProperty().toString());
+    }
+    
+    public StringProperty hierarchyProperty() {
+        StringProperty stringProperty = new SimpleStringProperty(); 
+        switch(this.hierarchy.get()) {
+            case 0:
+                stringProperty = new SimpleStringProperty("Cliente");
+                break;
+              
+            case 1:
+                stringProperty = new SimpleStringProperty("Employee");
+                break;
+              
+            case 2:
+                stringProperty = new SimpleStringProperty("Manager");
+                break;
+        }
+        return stringProperty;
     }
     
     public String getName() {
@@ -147,6 +165,10 @@ public class BankUser {
 
     public void setPassword(String password) {
         this.password.set(password);
+    }
+    
+    public String numberOfAccountsPropertyAsString() {
+        return this.accounts.sizeProperty().toString();
     }
 
     public List<BankAccount> getAccountList() {
