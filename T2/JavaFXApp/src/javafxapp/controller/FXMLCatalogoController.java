@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -20,6 +21,7 @@ import javafx.scene.input.MouseButton;
 import javafxapp.JavaFXApp;
 import javafxapp.model.BankAccount.BankAccount;
 import javafxapp.model.BankUser.BankUser;
+import javafxapp.model.Util.EnumHierarchy;
 import org.controlsfx.dialog.Dialogs;
 
 /**
@@ -31,6 +33,7 @@ public class FXMLCatalogoController implements Initializable {
     private final ObservableList<BankUser> clients = FXCollections.observableArrayList();
     private JavaFXApp app = new JavaFXApp();
     
+    
     @FXML
     private Label labelNome;
 
@@ -38,7 +41,7 @@ public class FXMLCatalogoController implements Initializable {
     private Label labelCpf;
 
     @FXML
-    private Label labelAccountType;
+    private Label labelAccountsNumber;
 
     @FXML
     private Label labelHierarchy;
@@ -53,11 +56,13 @@ public class FXMLCatalogoController implements Initializable {
     private TableColumn<BankUser, String> columnCpf;
     
     @FXML
-    private TableColumn<BankUser, String> columnAccountNumber;
+    private TableColumn<BankUser, String> columnAccountsNumber;
     
     @FXML
     private TableColumn<BankUser, String> columnHierarchy;
     
+    @FXML
+    private ComboBox<EnumHierarchy> comboBoxHierarchy;
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,24 +71,23 @@ public class FXMLCatalogoController implements Initializable {
         assert tableBankUser != null : "fx:id=\"tableBankUser\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert columnName != null : "fx:id=\"columnName\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert columnCpf != null : "fx:id=\"columnCpf\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert columnAccountNumber != null : "fx:id=\"columnAccountNumber\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert columnAccountsNumber != null : "fx:id=\"columnAccountNumber\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert columnHierarchy != null : "fx:id=\"columnHierarchy\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert labelNome != null : "fx:id=\"labelNome\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert labelCpf != null : "fx:id=\"labelCpf\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert labelAccountType != null : "fx:id=\"labelAccountType\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert labelAccountsNumber != null : "fx:id=\"labelAccountType\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert labelHierarchy != null : "fx:id=\"labelHierarchy\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         
         
         columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         columnCpf.setCellValueFactory(cellData -> cellData.getValue().cpfProperty());
-        columnAccountNumber.setCellValueFactory(cellData -> cellData.getValue().numberOfAccountsProperty());
+        columnAccountsNumber.setCellValueFactory(cellData -> cellData.getValue().numberOfAccountsProperty());
         columnHierarchy.setCellValueFactory(cellData -> cellData.getValue().hierarchyProperty());
         tableBankUser.setItems(getItems());
         tableBankUser.setEditable(true);
         
         labelNome.setText(tableBankUser.getColumns().get(0).getCellData(0).toString());
         labelCpf.setText(tableBankUser.getColumns().get(1).getCellData(0).toString());
-        labelAccountType.setText(tableBankUser.getColumns().get(2).getCellData(0).toString());
         labelHierarchy.setText(tableBankUser.getColumns().get(3).getCellData(0).toString());
         
         tableBankUser.setRowFactory(tv -> {
@@ -97,7 +101,6 @@ public class FXMLCatalogoController implements Initializable {
                     
                     labelNome.setText(tableBankUser.getSelectionModel().getSelectedItem().getName());
                     labelCpf.setText(tableBankUser.getSelectionModel().getSelectedItem().getCpf());
-                    labelAccountType.setText(tableBankUser.getSelectionModel().getSelectedItem().numberOfAccountsPropertyAsString());
                     labelHierarchy.setText(tableBankUser.getSelectionModel().getSelectedItem().getHierarchyAsString());
                 }
                 

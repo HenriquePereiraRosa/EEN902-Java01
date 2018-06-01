@@ -96,7 +96,7 @@ public class BankUser {
     }
     
     public StringProperty numberOfAccountsProperty() {
-        return new SimpleStringProperty(this.accounts.sizeProperty().toString());
+        return new SimpleStringProperty(Integer.toString(this.accounts.size()));
     }
     
     public StringProperty hierarchyProperty() {
