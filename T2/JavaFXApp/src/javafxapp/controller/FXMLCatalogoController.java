@@ -12,14 +12,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafxapp.JavaFXApp;
 import javafxapp.model.BankAccount.BankAccount;
 import javafxapp.model.BankUser.BankUser;
+import javafxapp.model.Util.EnumHierarchy;
 import org.controlsfx.dialog.Dialogs;
 
 /**
@@ -32,17 +38,11 @@ public class FXMLCatalogoController implements Initializable {
     private JavaFXApp app = new JavaFXApp();
     
     @FXML
-    private Label labelNome;
+    private ResourceBundle resources;
 
     @FXML
-    private Label labelCpf;
-
-    @FXML
-    private Label labelAccountType;
-
-    @FXML
-    private Label labelHierarchy;
-
+    private URL location;
+    
     @FXML
     private TableView<BankUser> tableBankUser;
     
@@ -53,12 +53,57 @@ public class FXMLCatalogoController implements Initializable {
     private TableColumn<BankUser, String> columnCpf;
     
     @FXML
-    private TableColumn<BankUser, String> columnAccountNumber;
+    private TableColumn<BankUser, String> columnAccountsNumber;
     
     @FXML
     private TableColumn<BankUser, String> columnHierarchy;
     
-            
+    
+    @FXML
+    private PasswordField passFieldPassword;
+
+    @FXML
+    private TextField txtFieldNome;
+
+    @FXML
+    private ComboBox<?> comboBoxHierarchy;
+
+    @FXML
+    private TextField txtFieldCpf;
+
+    @FXML
+    private Button btnNew;
+
+    @FXML
+    private Button btnEdit;
+
+    @FXML
+    private Button btnRemove;
+
+    @FXML
+    private Label labelTest;
+
+    @FXML
+    private Button btnCleanFields;
+
+    @FXML
+    private ComboBox<?> comboBoxAccountSelect;
+
+    @FXML
+    private TextArea txtAreaStatements;
+
+    @FXML
+    private PasswordField passFieldBalance;
+
+    @FXML
+    private TextField txtFieldTransferAccount;
+
+    @FXML
+    private TextField txtFieldTransferValue;
+
+    @FXML
+    private Button btnDoTranfer;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -66,25 +111,35 @@ public class FXMLCatalogoController implements Initializable {
         assert tableBankUser != null : "fx:id=\"tableBankUser\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert columnName != null : "fx:id=\"columnName\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert columnCpf != null : "fx:id=\"columnCpf\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert columnAccountNumber != null : "fx:id=\"columnAccountNumber\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert columnAccountsNumber != null : "fx:id=\"columnAccountsNumber\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert columnHierarchy != null : "fx:id=\"columnHierarchy\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert labelNome != null : "fx:id=\"labelNome\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert labelCpf != null : "fx:id=\"labelCpf\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert labelAccountType != null : "fx:id=\"labelAccountType\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert labelHierarchy != null : "fx:id=\"labelHierarchy\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        
+        assert passFieldPassword != null : "fx:id=\"passFieldPassword\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert txtFieldNome != null : "fx:id=\"txtFieldNome\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert comboBoxHierarchy != null : "fx:id=\"comboBoxHierarchy\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert txtFieldCpf != null : "fx:id=\"txtFieldCpf\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert btnNew != null : "fx:id=\"btnNew\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert btnEdit != null : "fx:id=\"btnEdit\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert btnRemove != null : "fx:id=\"btnRemove\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert labelTest != null : "fx:id=\"labelHierarchy\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert btnCleanFields != null : "fx:id=\"btnCleanFields\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert comboBoxAccountSelect != null : "fx:id=\"comboBoxAccountSelect\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert txtAreaStatements != null : "fx:id=\"txtAreaStatements\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert passFieldBalance != null : "fx:id=\"passFieldBalance\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert txtFieldTransferAccount != null : "fx:id=\"txtFieldTransferAccount\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert txtFieldTransferValue != null : "fx:id=\"txtFieldTransferValue\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert btnDoTranfer != null : "fx:id=\"btnDoTranfer\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+
         
         columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         columnCpf.setCellValueFactory(cellData -> cellData.getValue().cpfProperty());
-        columnAccountNumber.setCellValueFactory(cellData -> cellData.getValue().numberOfAccountsProperty());
+        columnAccountsNumber.setCellValueFactory(cellData -> cellData.getValue().numberOfAccountsProperty());
         columnHierarchy.setCellValueFactory(cellData -> cellData.getValue().hierarchyProperty());
         tableBankUser.setItems(getItems());
         tableBankUser.setEditable(true);
         
-        labelNome.setText(tableBankUser.getColumns().get(0).getCellData(0).toString());
-        labelCpf.setText(tableBankUser.getColumns().get(1).getCellData(0).toString());
-        labelAccountType.setText(tableBankUser.getColumns().get(2).getCellData(0).toString());
-        labelHierarchy.setText(tableBankUser.getColumns().get(3).getCellData(0).toString());
+        txtFieldNome.setText(tableBankUser.getColumns().get(0).getCellData(0).toString());
+        txtFieldCpf.setText(tableBankUser.getColumns().get(1).getCellData(0).toString());
+        labelTest.setText(tableBankUser.getColumns().get(3).getCellData(0).toString());
         
         tableBankUser.setRowFactory(tv -> {
             TableRow<BankUser> row = new TableRow<>();
@@ -95,10 +150,9 @@ public class FXMLCatalogoController implements Initializable {
                     System.out.println("One click on: "+rowUser.getName());
                     System.out.println("/t"+rowUser.accountNumberProperty());
                     
-                    labelNome.setText(tableBankUser.getSelectionModel().getSelectedItem().getName());
-                    labelCpf.setText(tableBankUser.getSelectionModel().getSelectedItem().getCpf());
-                    labelAccountType.setText(tableBankUser.getSelectionModel().getSelectedItem().numberOfAccountsPropertyAsString());
-                    labelHierarchy.setText(tableBankUser.getSelectionModel().getSelectedItem().getHierarchyAsString());
+                    txtFieldNome.setText(tableBankUser.getSelectionModel().getSelectedItem().getName());
+                    txtFieldCpf.setText(tableBankUser.getSelectionModel().getSelectedItem().getCpf());
+                    labelTest.setText(tableBankUser.getSelectionModel().getSelectedItem().getHierarchyAsString());
                 }
                 
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
@@ -184,6 +238,16 @@ public class FXMLCatalogoController implements Initializable {
 				.message("Please select a person in the table.")
 				.showWarning();
 		}
+	}
+        
+        
+	/**
+	 * Called when the user clicks the edit button. Opens a dialog to edit
+	 * details for the selected person.
+	 */
+	@FXML
+	private void handleCleanFields() {
+            System.out.println("TO IMPLEMENT...");
 	}
     
         private void inflateDetails(BankUser user) {
