@@ -37,6 +37,7 @@ public class FXMLCatalogoController implements Initializable {
     private final ObservableList<BankUser> clients = FXCollections.observableArrayList();
     private JavaFXApp app = new JavaFXApp();
     
+    
     @FXML
     private ResourceBundle resources;
 
