@@ -25,6 +25,7 @@ import javafx.scene.input.MouseButton;
 import javafxapp.JavaFXApp;
 import javafxapp.model.BankAccount.BankAccount;
 import javafxapp.model.BankUser.BankUser;
+import javafxapp.model.Util.EnumAccountType;
 import javafxapp.model.Util.EnumHierarchy;
 import org.controlsfx.dialog.Dialogs;
 
@@ -64,13 +65,10 @@ public class FXMLCatalogoController implements Initializable {
     private PasswordField passFieldPassword;
 
     @FXML
-    private TextField txtFieldNome;
+    private ComboBox<String> comboBoxHierarchy;
 
     @FXML
-    private ComboBox<?> comboBoxHierarchy;
-
-    @FXML
-    private TextField txtFieldCpf;
+    private ComboBox<String> comboBoxAccountSelect;
 
     @FXML
     private Button btnNew;
@@ -82,28 +80,32 @@ public class FXMLCatalogoController implements Initializable {
     private Button btnRemove;
 
     @FXML
-    private Label labelTest;
-
-    @FXML
     private Button btnCleanFields;
+    
+    @FXML
+    private Button btnDoTranfer;
+    
+    @FXML
+    private Label labelInfo;
 
     @FXML
-    private ComboBox<?> comboBoxAccountSelect;
+    private TextField txtFieldNome;
 
     @FXML
-    private TextArea txtAreaStatements;
-
+    private TextField txtFieldCpf;
+    
     @FXML
-    private PasswordField passFieldBalance;
+    private TextField txtFieldBalance;
 
     @FXML
     private TextField txtFieldTransferAccount;
 
     @FXML
     private TextField txtFieldTransferValue;
-
+    
     @FXML
-    private Button btnDoTranfer;
+    private TextArea txtAreaStatements;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -121,11 +123,11 @@ public class FXMLCatalogoController implements Initializable {
         assert btnNew != null : "fx:id=\"btnNew\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert btnEdit != null : "fx:id=\"btnEdit\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert btnRemove != null : "fx:id=\"btnRemove\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert labelTest != null : "fx:id=\"labelHierarchy\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert labelInfo != null : "fx:id=\"labelHierarchy\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert btnCleanFields != null : "fx:id=\"btnCleanFields\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert comboBoxAccountSelect != null : "fx:id=\"comboBoxAccountSelect\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert txtAreaStatements != null : "fx:id=\"txtAreaStatements\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert passFieldBalance != null : "fx:id=\"passFieldBalance\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert txtFieldBalance != null : "fx:id=\"passFieldBalance\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert txtFieldTransferAccount != null : "fx:id=\"txtFieldTransferAccount\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert txtFieldTransferValue != null : "fx:id=\"txtFieldTransferValue\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert btnDoTranfer != null : "fx:id=\"btnDoTranfer\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
@@ -138,9 +140,7 @@ public class FXMLCatalogoController implements Initializable {
         tableBankUser.setItems(getItems());
         tableBankUser.setEditable(true);
         
-        txtFieldNome.setText(tableBankUser.getColumns().get(0).getCellData(0).toString());
-        txtFieldCpf.setText(tableBankUser.getColumns().get(1).getCellData(0).toString());
-        labelTest.setText(tableBankUser.getColumns().get(3).getCellData(0).toString());
+        inflateDetailsInitial();
         
         tableBankUser.setRowFactory(tv -> {
             TableRow<BankUser> row = new TableRow<>();
@@ -149,11 +149,8 @@ public class FXMLCatalogoController implements Initializable {
                 if (event.getClickCount() == 1 && (! row.isEmpty()) && MouseButton.PRIMARY.equals(event.getButton())) {
                     BankUser rowUser = row.getItem();
                     System.out.println("One click on: "+rowUser.getName());
-                    System.out.println("/t"+rowUser.accountNumberProperty());
-                    
-                    txtFieldNome.setText(tableBankUser.getSelectionModel().getSelectedItem().getName());
-                    txtFieldCpf.setText(tableBankUser.getSelectionModel().getSelectedItem().getCpf());
-                    labelTest.setText(tableBankUser.getSelectionModel().getSelectedItem().getHierarchyAsString());
+                                        
+                    this.inflateDetails(tableBankUser.getSelectionModel().getSelectedItem());
                 }
                 
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
@@ -192,15 +189,12 @@ public class FXMLCatalogoController implements Initializable {
 	@FXML
 	private void handleDeletePerson() {
 		int selectedIndex = tableBankUser.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
-			tableBankUser.getItems().remove(selectedIndex);
+                
+                System.out.println("SELECTTED ITEM> " + selectedIndex);
+		if(selectedIndex >= 0) {
+                    tableBankUser.getItems().remove(selectedIndex);
 		} else {
-			// Nothing selected.
-			Dialogs.create()
-		        .title("No Selection")
-		        .masthead("No Person Selected")
-		        .message("Please select a person in the table.")
-		        .showWarning();
+                    labelInfo.setText("Nenhum Item Selecionado");
 		}
 	}
 	
@@ -210,12 +204,30 @@ public class FXMLCatalogoController implements Initializable {
 	 */
 	@FXML
 	private void handleNewPerson() {
-            System.out.println("TO IMPLEMENT...");
-//		BankUser tempUser = new BankUser();
-//		boolean okClicked = mainApp.showPersonEditDialog(tempUser);
-//		if (okClicked) {
-//			mainApp.getPersonData().add(tempUser);
-//		}
+            int numberMax = 0;
+            for(BankUser user : tableBankUser.getItems()) {
+                for(BankAccount account : user.getAccountList()) {
+                    if(Integer.valueOf(account.getAccountNumber()) > numberMax) {
+                        numberMax = Integer.valueOf(account.getAccountNumber());
+                    }
+                }
+            }
+            String accountNumber = String.format("%4s", String.valueOf(numberMax));
+            accountNumber = accountNumber.replaceAll(" ", "0");
+            BankUser user = new BankUser();
+            BankAccount account = new BankAccount(
+                    accountNumber,
+                    Integer.valueOf(comboBoxAccountSelect.getSelectionModel().getSelectedIndex()),
+                    0.00); //Double.parseDouble(txtFieldBalance.getText()));
+            user.setName(txtFieldNome.getText());
+            user.setCpf(txtFieldCpf.getText());
+            user.setPassword(passFieldPassword.getText());
+            user.setHierarchy(comboBoxHierarchy.getSelectionModel().getSelectedIndex());
+            account.setAccountNumber(accountNumber);
+            account.setAccounttype(Integer.valueOf(comboBoxAccountSelect.getSelectionModel().getSelectedIndex()));
+            user.addAccount(account);
+            
+            tableBankUser.getItems().add(user);
 	}
 
 	/**
@@ -226,18 +238,13 @@ public class FXMLCatalogoController implements Initializable {
 	private void handleEditPerson() {
 		BankUser selectedUser = tableBankUser.getSelectionModel().getSelectedItem();
 		if (selectedUser != null) {
-			boolean okClicked = app.showPersonEditDialog(selectedUser);
+			boolean okClicked = false; // TODO
 			if (okClicked) {
 				inflateDetails(selectedUser);
 			}
 
 		} else {
-			// Nothing selected.
-			Dialogs.create()
-				.title("No Selection")
-				.masthead("No Person Selected")
-				.message("Please select a person in the table.")
-				.showWarning();
+                    labelInfo.setText("Nenhum Item Selecionado");
 		}
 	}
         
@@ -251,7 +258,60 @@ public class FXMLCatalogoController implements Initializable {
             System.out.println("TO IMPLEMENT...");
 	}
     
+        private void inflateDetailsInitial() {
+            
+            if(!tableBankUser.getItems().isEmpty()) {
+                BankUser user = tableBankUser.getItems().get(0);
+
+                txtFieldNome.setText(tableBankUser.getColumns().get(0).getCellData(0).toString());
+                txtFieldCpf.setText(tableBankUser.getColumns().get(1).getCellData(0).toString());
+                labelInfo.setText(tableBankUser.getColumns().get(3).getCellData(0).toString());
+
+
+                ObservableList<String> options = FXCollections.observableArrayList(
+                        EnumHierarchy.CLIENT.toString(),
+                        EnumHierarchy.EMPLOYEE.toString(),
+                        EnumHierarchy.MANAGER.toString()
+                );
+                comboBoxHierarchy.getItems().addAll(options);
+
+                ObservableList<String> options2 = FXCollections.observableArrayList(
+                        EnumAccountType.CORRENTE.toString(),
+                        EnumAccountType.POUPANCA.toString(),
+                        EnumAccountType.DI.toString(),
+                        EnumAccountType.TESOURO.toString()
+                );
+                comboBoxAccountSelect.getItems().addAll(options2);
+
+                txtFieldNome.setText(user.getName());
+                txtFieldCpf.setText(user.getCpf());
+                passFieldPassword.setText(user.getPassword());
+
+                labelInfo.setText(user.getHierarchyAsString());
+                
+            } else {
+                labelInfo.setText("Lista vazia");
+            }
+        }
+        
+        
         private void inflateDetails(BankUser user) {
             
+            txtFieldNome.setText(user.getName());
+            txtFieldCpf.setText(user.getCpf());
+            passFieldPassword.setText(user.getPassword());
+            
+            ObservableList<String> options = FXCollections.observableArrayList(
+                    user.getHierarchyAsString()
+            );
+            comboBoxHierarchy.setValue(options.get(0));
+                        
+            ObservableList<String> options2 = FXCollections.observableArrayList(
+                    user.getAccountList().get(0).toString()
+            );
+            comboBoxAccountSelect.setValue(options2.get(0));
+            
+            
+            labelInfo.setText(user.getHierarchyAsString());
         }
 }

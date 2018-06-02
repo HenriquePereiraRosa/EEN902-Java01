@@ -9,23 +9,29 @@ package javafxapp.model.Util;
  *
  * @author user
  */
-public enum EnumHierarchy {    
-    CLIENT {
+public enum EnumAccountType {    
+    CORRENTE {
         @Override
         public String toString() {
-            return "Cliente";
+            return "Corrente";
         }
     },
-    EMPLOYEE {
+    POUPANCA {
         @Override
         public String toString() {
-            return "Funcionário";
+            return "Poupança";
         }
     },
-    MANAGER {
+    DI {
         @Override
         public String toString() {
-            return "Gerente";
+            return "DI";
+        }
+    },    
+    TESOURO {
+        @Override
+        public String toString() {
+            return "Tesouro";
         }
     }    
-}
+}   

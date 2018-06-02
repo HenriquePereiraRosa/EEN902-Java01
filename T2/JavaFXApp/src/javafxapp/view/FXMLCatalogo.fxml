@@ -64,29 +64,29 @@
                         <TextField fx:id="txtFieldCpf" prefHeight="25.0" prefWidth="102.0" promptText="CPF" GridPane.columnIndex="3" />
                      </children>
                   </GridPane>
-                    <Button fx:id="btnNew" layoutX="135.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="25.0" prefWidth="99.0" text="Novo" />
-                    <Button fx:id="btnEdit" layoutX="255.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="25.0" prefWidth="99.0" text="Editar" />
-                    <Button fx:id="btnRemove" layoutX="374.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="25.0" prefWidth="99.0" text="Remover" />
-                  <Label fx:id="labelTest" alignment="CENTER" contentDisplay="CENTER" layoutX="198.0" layoutY="192.0" text="teste" textAlignment="JUSTIFY">
+                    <Button fx:id="btnNew" layoutX="376.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="25.0" prefWidth="99.0" text="Novo" />
+                    <Button fx:id="btnEdit" layoutX="255.0" layoutY="156.0" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="25.0" prefWidth="99.0" text="Editar" />
+                    <Button fx:id="btnRemove" layoutX="374.0" layoutY="156.0" mnemonicParsing="false" onAction="#handleDeletePerson" prefHeight="25.0" prefWidth="99.0" text="Remover" />
+                  <Label fx:id="labelInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="456.0" text="teste" textAlignment="JUSTIFY">
                      <padding>
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <Button fx:id="btnCleanFields" layoutX="14.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleCleanFields" text="Limpar Campos" />
-                  <ComboBox fx:id="comboBoxAccountSelect" layoutX="14.0" layoutY="155.0" prefHeight="25.0" prefWidth="144.0" promptText="Selecione a conta" />
+                  <Button fx:id="btnCleanFields" layoutX="255.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleCleanFields" text="Limpar Campos" />
+                  <ComboBox fx:id="comboBoxAccountSelect" layoutX="14.0" layoutY="117.0" prefHeight="25.0" prefWidth="144.0" promptText="Selecione a conta" />
                   <Label alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="245.0" layoutY="294.0" prefHeight="32.0" prefWidth="206.0" style="-fx-border-color: lightgray; -fx-border-radius: 5;" text="Transferência" textAlignment="JUSTIFY">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="txtAreaStatements" layoutX="14.0" layoutY="192.0" prefHeight="243.0" prefWidth="144.0" promptText="Extrato..." />
-                  <PasswordField fx:id="passFieldBalance" layoutX="53.0" layoutY="442.0" prefHeight="25.0" prefWidth="106.0" promptText="Balance" />
-                  <Label contentDisplay="CENTER" layoutX="17.0" layoutY="446.0" prefHeight="17.0" prefWidth="33.0" text="Saldo:" />
+                  <TextArea fx:id="txtAreaStatements" layoutX="14.0" layoutY="154.0" prefHeight="243.0" prefWidth="144.0" promptText="Extrato..." />
+                  <Label contentDisplay="CENTER" layoutX="17.0" layoutY="408.0" prefHeight="17.0" prefWidth="33.0" text="Saldo:" />
                   <Label layoutX="248.0" layoutY="355.0" prefHeight="17.0" prefWidth="46.0" text="Conta:" />
                   <TextField fx:id="txtFieldTransferAccount" layoutX="301.0" layoutY="351.0" />
                   <Label layoutX="248.0" layoutY="396.0" prefHeight="17.0" prefWidth="46.0" text="Valor:" />
                   <TextField fx:id="txtFieldTransferValue" layoutX="301.0" layoutY="392.0" />
                   <Button fx:id="btnDoTranfer" layoutX="351.0" layoutY="439.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Transferir" />
+                  <TextField fx:id="txtFieldBalance" layoutX="53.0" layoutY="404.0" prefHeight="25.0" prefWidth="106.0" promptText="Balance" />
                   </children></AnchorPane>
         </items>
       </SplitPane>

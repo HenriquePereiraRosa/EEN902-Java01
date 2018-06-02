@@ -31,6 +31,14 @@ public class BankUser {
     private final ListProperty<BankAccount> accounts;
     
     
+    public BankUser() {
+        this.name = new SimpleStringProperty();
+        this.cpf = new SimpleStringProperty();
+        this.password = new SimpleStringProperty();
+        this.hierarchy = new SimpleIntegerProperty();
+        this.accounts = new SimpleListProperty<>();
+    }
+    
     public BankUser(BankUser another) {
         this.name = new SimpleStringProperty(another.getName());
         this.cpf = new SimpleStringProperty(another.getCpf());
@@ -107,11 +115,11 @@ public class BankUser {
                 break;
               
             case 1:
-                stringProperty = new SimpleStringProperty("Employee");
+                stringProperty = new SimpleStringProperty("Funcionário");
                 break;
               
             case 2:
-                stringProperty = new SimpleStringProperty("Manager");
+                stringProperty = new SimpleStringProperty("Gerente");
                 break;
         }
         return stringProperty;
@@ -175,18 +183,27 @@ public class BankUser {
         return accounts.subList(0, accounts.size());
     }
 
-    public void setAccountList(List<BankAccount> accountList) {
+    public void setAccountList(List<BankAccount> list) {
         this.accounts.clear();
-        this.accounts.addAll(accountList);
+        ObservableList<BankAccount> observableList = FXCollections.observableArrayList(list);
+        accounts.addAll(observableList);
     }
     
     public void addAccount(String agency, String accountNumber, Integer type, Double initialValue) {
         BankAccount account = new BankAccount(accountNumber, type, initialValue);
-        accounts.add(account);
+        List<BankAccount> list = new ArrayList<>(); 
+        list = this.getAccountList();
+        list.add(account);
+        ObservableList<BankAccount> observableList = FXCollections.observableArrayList(list);
+        accounts.addAll(observableList);
     }
     
     public void addAccount(BankAccount account) {
-        accounts.add(account);
+        List<BankAccount> list = new ArrayList<>(); 
+        list = this.getAccountList();
+        list.add(account);
+        ObservableList<BankAccount> observableList = FXCollections.observableArrayList(list);
+        accounts.addAll(observableList);
     }
     
     public boolean removeAccount(BankAccount account) {
