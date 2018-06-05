@@ -83,7 +83,7 @@ public class FXMLCatalogoController implements Initializable {
     private Button btnCleanFields;
     
     @FXML
-    private Button btnDoTranfer;
+    private Button btnDoTransfer;
     
     @FXML
     private Label labelInfo;
@@ -130,7 +130,7 @@ public class FXMLCatalogoController implements Initializable {
         assert txtFieldBalance != null : "fx:id=\"passFieldBalance\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert txtFieldTransferAccount != null : "fx:id=\"txtFieldTransferAccount\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert txtFieldTransferValue != null : "fx:id=\"txtFieldTransferValue\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert btnDoTranfer != null : "fx:id=\"btnDoTranfer\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert btnDoTransfer != null : "fx:id=\"btnDoTranfer\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
 
         
         columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -251,7 +251,34 @@ public class FXMLCatalogoController implements Initializable {
 	 */
 	@FXML
 	private void handleCleanFields() {
-            System.out.println("TO IMPLEMENT...");
+            txtFieldNome.clear();
+            txtFieldCpf.clear();
+
+
+            ObservableList<String> options = FXCollections.observableArrayList(
+                EnumHierarchy.CLIENT.toString(),
+                EnumHierarchy.EMPLOYEE.toString(),
+                EnumHierarchy.MANAGER.toString()
+            );
+            comboBoxHierarchy.getItems().addAll(options);
+
+            ObservableList<String> options2 = FXCollections.observableArrayList(
+                EnumAccountType.CORRENTE.toString(),
+                EnumAccountType.POUPANCA.toString(),
+                EnumAccountType.DI.toString(),
+                EnumAccountType.TESOURO.toString()
+            );
+            comboBoxAccountSelect.getItems().addAll(options2);
+
+            txtFieldNome.clear();
+            txtFieldCpf.clear();
+            passFieldPassword.clear();
+            txtAreaStatements.clear();
+            txtFieldBalance.clear();
+            txtFieldTransferAccount.clear();
+            txtFieldTransferValue.clear();
+
+            labelInfo.setText("Utilize 'Editar', 'Remover', 'Limpar Campos' e 'Novo' para editar a lista de clientes.");
 	}
         
         
@@ -276,18 +303,18 @@ public class FXMLCatalogoController implements Initializable {
 
 
                 ObservableList<String> options = FXCollections.observableArrayList(
-                        EnumHierarchy.CLIENT.toString(),
-                        EnumHierarchy.EMPLOYEE.toString(),
-                        EnumHierarchy.MANAGER.toString()
+                    EnumHierarchy.CLIENT.toString(),
+                    EnumHierarchy.EMPLOYEE.toString(),
+                    EnumHierarchy.MANAGER.toString()
                 );
                 comboBoxHierarchy.getItems().addAll(options);
                 comboBoxHierarchy.setValue(user.getHierarchyAsString());
 
                 ObservableList<String> options2 = FXCollections.observableArrayList(
-                        EnumAccountType.CORRENTE.toString(),
-                        EnumAccountType.POUPANCA.toString(),
-                        EnumAccountType.DI.toString(),
-                        EnumAccountType.TESOURO.toString()
+                    EnumAccountType.CORRENTE.toString(),
+                    EnumAccountType.POUPANCA.toString(),
+                    EnumAccountType.DI.toString(),
+                    EnumAccountType.TESOURO.toString()
                 );
                 comboBoxAccountSelect.getItems().addAll(options2);
                 comboBoxAccountSelect.setValue(user.getAccountList().get(0).toString());
@@ -297,7 +324,7 @@ public class FXMLCatalogoController implements Initializable {
                 passFieldPassword.setText(user.getPassword());
                 this.inflateStatements(user);
 
-                labelInfo.setText(user.getHierarchyAsString());
+                labelInfo.setText("Utilize os botões 'Editar', 'Remover', 'Limpar Campos' e 'Novo' \n para editar a lista de clientes.");
                 
             } else {
                 labelInfo.setText("ERRO: Lista vazia");
@@ -312,12 +339,12 @@ public class FXMLCatalogoController implements Initializable {
             passFieldPassword.setText(user.getPassword());
             
             ObservableList<String> options = FXCollections.observableArrayList(
-                    user.getHierarchyAsString()
+                user.getHierarchyAsString()
             );
             comboBoxHierarchy.setValue(options.get(0));
                         
             ObservableList<String> options2 = FXCollections.observableArrayList(
-                    user.getAccountList().get(0).toString()
+                user.getAccountList().get(0).toString()
             );
             comboBoxAccountSelect.setValue(options2.get(0));
             
