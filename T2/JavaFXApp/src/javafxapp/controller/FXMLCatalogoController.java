@@ -7,6 +7,7 @@ package javafxapp.controller;
 
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +38,6 @@ public class FXMLCatalogoController implements Initializable {
     
     private final ObservableList<BankUser> clients = FXCollections.observableArrayList();
     private JavaFXApp app = new JavaFXApp();
-    
     
     @FXML
     private ResourceBundle resources;
@@ -183,76 +183,138 @@ public class FXMLCatalogoController implements Initializable {
     }    
     
     
-	/**
-	 * Called when the user clicks on the delete button.
-	 */
-	@FXML
-	private void handleDeletePerson() {
-		int selectedIndex = tableBankUser.getSelectionModel().getSelectedIndex();
-                
-                System.out.println("SELECTTED ITEM> " + selectedIndex);
-		if(selectedIndex >= 0) {
-                    tableBankUser.getItems().remove(selectedIndex);
-		} else {
-                    labelInfo.setText("ERRO: Nenhum Item Selecionado");
-		}
-	}
-	
-	/**
-	 * Called when the user clicks the new button. Opens a dialog to edit
-	 * details for a new person.
-	 */
-	@FXML
-	private void handleNewPerson() {
-            int numberMax = 0;
-            Integer userHierarchy = 0, accountType = 0;
-            Double balance = 0.00;
-            String userName, userCpf, userPassword, accountNumber;
-            for(BankUser user : tableBankUser.getItems()) {
-                for(BankAccount account : user.getAccountList()) {
-                    if(Integer.valueOf(account.getAccountNumber()) > numberMax) {
-                        numberMax = Integer.valueOf(account.getAccountNumber());
-                    }
+    /**
+     * Called when the user clicks on the delete button.
+     */
+    @FXML
+    private void handleDeletePerson() {
+            int selectedIndex = tableBankUser.getSelectionModel().getSelectedIndex();
+
+            System.out.println("SELECTTED ITEM> " + selectedIndex);
+            if(selectedIndex >= 0) {
+                tableBankUser.getItems().remove(selectedIndex);
+            } else {
+                labelInfo.setText("ERRO: Nenhum Item Selecionado");
+            }
+    }
+
+
+    /**
+     * Called when the user clicks the new button. Opens a dialog to edit
+     * details for a new person.
+     */
+    @FXML
+    private void handleNewPerson() {
+        int numberMax = 0;
+        Integer userHierarchy = 0, accountType = 0;
+        Double balance = 0.00;
+        String userName, userCpf, userPassword, accountNumber;
+        for(BankUser user : tableBankUser.getItems()) {
+            for(BankAccount account : user.getAccountList()) {
+                if(Integer.valueOf(account.getAccountNumber()) > numberMax) {
+                    numberMax = Integer.valueOf(account.getAccountNumber());
                 }
             }
-            accountNumber = String.format("%4s", String.valueOf(numberMax));
-            accountNumber = accountNumber.replaceAll(" ", "0");
-            userName = txtFieldNome.getText();
-            userCpf = txtFieldCpf.getText();
-            userPassword = passFieldPassword.getText();
-            userHierarchy = comboBoxHierarchy.getSelectionModel().getSelectedIndex();
-            accountType = Integer.valueOf(comboBoxAccountSelect.getSelectionModel().getSelectedIndex());
-                        
-            clients.add(new BankUser(userName, userCpf, userHierarchy, userPassword, accountNumber, accountType, balance));
-	}
+        }
+        accountNumber = String.format("%4s", String.valueOf(numberMax));
+        accountNumber = accountNumber.replaceAll(" ", "0");
+        userName = txtFieldNome.getText();
+        userCpf = txtFieldCpf.getText();
+        userPassword = passFieldPassword.getText();
+        userHierarchy = comboBoxHierarchy.getSelectionModel().getSelectedIndex();
+        accountType = Integer.valueOf(comboBoxAccountSelect.getSelectionModel().getSelectedIndex());
 
-	/**
-	 * Called when the user clicks the edit button. Opens a dialog to edit
-	 * details for the selected person.
-	 */
-	@FXML
-	private void handleEditPerson() {
-		BankUser selectedUser = tableBankUser.getSelectionModel().getSelectedItem();
-		if (selectedUser != null) {
-			boolean okClicked = false; // TODO
-			if (okClicked) {
-				inflateDetails(selectedUser);
-			}
+        clients.add(new BankUser(userName, userCpf, userHierarchy, userPassword, accountNumber, accountType, balance));
+    }
 
-		} else {
-                    labelInfo.setText("ERRO: Nenhum Item Selecionado");
-		}
-	}
-        
-        
-	/**
-	 * Called when the user clicks the edit button. Opens a dialog to edit
-	 * details for the selected person.
-	 */
-	@FXML
-	private void handleCleanFields() {
-            txtFieldNome.clear();
-            txtFieldCpf.clear();
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+     */
+    @FXML
+    private void handleEditPerson() {
+            BankUser selectedUser = tableBankUser.getSelectionModel().getSelectedItem();
+            if (selectedUser != null) {
+                    boolean okClicked = false; // TODO
+                    if (okClicked) {
+                            inflateDetails(selectedUser);
+                    }
+
+            } else {
+                labelInfo.setText("ERRO: Nenhum Item Selecionado");
+            }
+    }
+
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+     */
+    @FXML
+    private void handleCleanFields() {
+        txtFieldNome.clear();
+        txtFieldCpf.clear();
+
+        ObservableList<String> options = FXCollections.observableArrayList(
+            EnumHierarchy.CLIENT.toString(),
+            EnumHierarchy.EMPLOYEE.toString(),
+            EnumHierarchy.MANAGER.toString()
+        );
+        comboBoxHierarchy.getItems().addAll(options);
+
+        ObservableList<String> options2 = FXCollections.observableArrayList(
+            EnumAccountType.CORRENTE.toString(),
+            EnumAccountType.POUPANCA.toString(),
+            EnumAccountType.DI.toString(),
+            EnumAccountType.TESOURO.toString()
+        );
+        comboBoxAccountSelect.getItems().addAll(options2);
+
+        txtFieldNome.clear();
+        txtFieldCpf.clear();
+        passFieldPassword.clear();
+        txtAreaStatements.clear();
+        txtFieldBalance.clear();
+        txtFieldTransferAccount.clear();
+        txtFieldTransferValue.clear();
+
+        labelInfo.setText("Utilize 'Editar', 'Remover', 'Limpar Campos' e 'Novo' para editar a lista de clientes.");
+    }
+
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+     */
+    @FXML
+    private void doTransfer() {
+        BankUser userTemp;
+        String accountInputed = txtFieldTransferAccount.getText();
+        Double valueInputed = Double.parseDouble(txtFieldTransferValue.getText()); //TODO: Validate
+        int IndexCounter = 0;
+        List<BankUser> list = tableBankUser.getItems();
+
+        for(BankUser user : list) {
+            for(BankAccount account : user.getAccountList()) { 
+                if(account.getAccountNumber().equals(accountInputed)) {
+                    user.deposit(accountInputed, valueInputed);
+                    clients.set(IndexCounter, user);
+                    IndexCounter++;
+                }
+            }
+        }
+    }
+
+
+    private void inflateDetailsInitial() {
+
+        if(!tableBankUser.getItems().isEmpty()) {
+            BankUser user = tableBankUser.getItems().get(0);
+
+            txtFieldNome.setText(tableBankUser.getColumns().get(0).getCellData(0).toString());
+            txtFieldCpf.setText(tableBankUser.getColumns().get(1).getCellData(0).toString());
+            labelInfo.setText(tableBankUser.getColumns().get(3).getCellData(0).toString());
 
 
             ObservableList<String> options = FXCollections.observableArrayList(
@@ -261,6 +323,7 @@ public class FXMLCatalogoController implements Initializable {
                 EnumHierarchy.MANAGER.toString()
             );
             comboBoxHierarchy.getItems().addAll(options);
+            comboBoxHierarchy.setValue(user.getHierarchyAsString());
 
             ObservableList<String> options2 = FXCollections.observableArrayList(
                 EnumAccountType.CORRENTE.toString(),
@@ -269,88 +332,40 @@ public class FXMLCatalogoController implements Initializable {
                 EnumAccountType.TESOURO.toString()
             );
             comboBoxAccountSelect.getItems().addAll(options2);
+            comboBoxAccountSelect.setValue(user.getAccountList().get(0).toString());
 
-            txtFieldNome.clear();
-            txtFieldCpf.clear();
-            passFieldPassword.clear();
-            txtAreaStatements.clear();
-            txtFieldBalance.clear();
-            txtFieldTransferAccount.clear();
-            txtFieldTransferValue.clear();
-
-            labelInfo.setText("Utilize 'Editar', 'Remover', 'Limpar Campos' e 'Novo' para editar a lista de clientes.");
-	}
-        
-        
-	/**
-	 * Called when the user clicks the edit button. Opens a dialog to edit
-	 * details for the selected person.
-	 */
-	@FXML
-	private void doTransfer() {
-            System.out.println("TO IMPLEMENT...");
-	}
-        
-                    
-        private void inflateDetailsInitial() {
-            
-            if(!tableBankUser.getItems().isEmpty()) {
-                BankUser user = tableBankUser.getItems().get(0);
-
-                txtFieldNome.setText(tableBankUser.getColumns().get(0).getCellData(0).toString());
-                txtFieldCpf.setText(tableBankUser.getColumns().get(1).getCellData(0).toString());
-                labelInfo.setText(tableBankUser.getColumns().get(3).getCellData(0).toString());
-
-
-                ObservableList<String> options = FXCollections.observableArrayList(
-                    EnumHierarchy.CLIENT.toString(),
-                    EnumHierarchy.EMPLOYEE.toString(),
-                    EnumHierarchy.MANAGER.toString()
-                );
-                comboBoxHierarchy.getItems().addAll(options);
-                comboBoxHierarchy.setValue(user.getHierarchyAsString());
-
-                ObservableList<String> options2 = FXCollections.observableArrayList(
-                    EnumAccountType.CORRENTE.toString(),
-                    EnumAccountType.POUPANCA.toString(),
-                    EnumAccountType.DI.toString(),
-                    EnumAccountType.TESOURO.toString()
-                );
-                comboBoxAccountSelect.getItems().addAll(options2);
-                comboBoxAccountSelect.setValue(user.getAccountList().get(0).toString());
-
-                txtFieldNome.setText(user.getName());
-                txtFieldCpf.setText(user.getCpf());
-                passFieldPassword.setText(user.getPassword());
-                this.inflateStatements(user);
-
-                labelInfo.setText("Utilize os botões 'Editar', 'Remover', 'Limpar Campos' e 'Novo' \n para editar a lista de clientes.");
-                
-            } else {
-                labelInfo.setText("ERRO: Lista vazia");
-            }
-        }
-        
-        
-        private void inflateDetails(BankUser user) {
-            
             txtFieldNome.setText(user.getName());
             txtFieldCpf.setText(user.getCpf());
             passFieldPassword.setText(user.getPassword());
-            
-            ObservableList<String> options = FXCollections.observableArrayList(
-                user.getHierarchyAsString()
-            );
-            comboBoxHierarchy.setValue(options.get(0));
-                        
-            ObservableList<String> options2 = FXCollections.observableArrayList(
-                user.getAccountList().get(0).toString()
-            );
-            comboBoxAccountSelect.setValue(options2.get(0));
-            
-            
-            labelInfo.setText(user.getHierarchyAsString());
+            this.inflateStatements(user);
+
+            labelInfo.setText("Utilize os botões 'Editar', 'Remover', 'Limpar Campos' e 'Novo' \n para editar a lista de clientes.");
+
+        } else {
+            labelInfo.setText("ERRO: Lista vazia");
         }
+    }
+
+
+    private void inflateDetails(BankUser user) {
+
+        txtFieldNome.setText(user.getName());
+        txtFieldCpf.setText(user.getCpf());
+        passFieldPassword.setText(user.getPassword());
+
+        ObservableList<String> options = FXCollections.observableArrayList(
+            user.getHierarchyAsString()
+        );
+        comboBoxHierarchy.setValue(options.get(0));
+
+        ObservableList<String> options2 = FXCollections.observableArrayList(
+            user.getAccountList().get(0).toString()
+        );
+        comboBoxAccountSelect.setValue(options2.get(0));
+
+
+        labelInfo.setText(user.getHierarchyAsString());
+    }
 
     private void inflateStatements(BankUser user) {
         Double balance = 0.00;
