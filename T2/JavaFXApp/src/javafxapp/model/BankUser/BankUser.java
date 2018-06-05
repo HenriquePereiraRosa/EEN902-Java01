@@ -6,8 +6,8 @@
 package javafxapp.model.BankUser;
 
 import java.util.ArrayList;
-import javafxapp.model.BankAccount.BankAccount;
 import java.util.List;
+import javafxapp.model.BankAccount.BankAccount;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
@@ -186,16 +186,17 @@ public class BankUser {
     public void setAccountList(List<BankAccount> list) {
         this.accounts.clear();
         ObservableList<BankAccount> observableList = FXCollections.observableArrayList(list);
-        accounts.addAll(observableList);
+        this.accounts.addAll(observableList);
     }
     
     public void addAccount(String agency, String accountNumber, Integer type, Double initialValue) {
         BankAccount account = new BankAccount(accountNumber, type, initialValue);
-        List<BankAccount> list = new ArrayList<>(); 
-        list = this.getAccountList();
+        
+        List<BankAccount> list = new ArrayList<>();
+        list.addAll(this.getAccountList());
         list.add(account);
         ObservableList<BankAccount> observableList = FXCollections.observableArrayList(list);
-        accounts.addAll(observableList);
+        this.accounts.addAll(observableList);
     }
     
     public void addAccount(BankAccount account) {
@@ -203,12 +204,12 @@ public class BankUser {
         list = this.getAccountList();
         list.add(account);
         ObservableList<BankAccount> observableList = FXCollections.observableArrayList(list);
-        accounts.addAll(observableList);
+        this.accounts.addAll(observableList);
     }
     
     public boolean removeAccount(BankAccount account) {
         
-        if(accounts.contains(account)){
+        if(this.accounts.contains(account)){
             accounts.remove(account);
             return true;
         } 
