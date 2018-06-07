@@ -180,7 +180,7 @@ public class BankUser {
     }
 
     public List<BankAccount> getAccountList() {
-        return accounts.subList(0, accounts.size());
+        return accounts.get();
     }
 
     public void setAccountList(List<BankAccount> list) {

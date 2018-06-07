@@ -25,15 +25,15 @@ public class BankAccount {
     private final ListProperty<Double> extract;
 
     
-    public BankAccount(String accountNumber, Integer type, Double balance) {
-        this.accountNumber = new SimpleStringProperty(accountNumber);
-        this.accountType = new SimpleIntegerProperty(type);
+    public BankAccount() {
+        this.accountNumber = new SimpleStringProperty();
+        this.accountType = new SimpleIntegerProperty();
         List<Double> list = new ArrayList<>();
-        list.add(balance);
+        list.add(0.0);
         ObservableList<Double> observableList = FXCollections.observableArrayList(list);
         this.extract = new SimpleListProperty<>(observableList);
     }
-
+ 
     public BankAccount(String accountNumber) {
         this.accountNumber = new SimpleStringProperty(accountNumber);
         this.accountType = new SimpleIntegerProperty(0);
@@ -42,7 +42,16 @@ public class BankAccount {
         ObservableList<Double> observableList = FXCollections.observableArrayList(list);
         this.extract = new SimpleListProperty<>(observableList);
     }
-    
+ 
+    public BankAccount(String accountNumber, Integer type, Double balance) {
+        this.accountNumber = new SimpleStringProperty(accountNumber);
+        this.accountType = new SimpleIntegerProperty(type);
+        List<Double> list = new ArrayList<>();
+        list.add(balance);
+        ObservableList<Double> observableList = FXCollections.observableArrayList(list);
+        this.extract = new SimpleListProperty<>(observableList);
+    }
+ 
     public String getAccountNumber() {
         return accountNumber.get();
     }
