@@ -5,12 +5,12 @@
  */
 package javafxapp.controller;
 
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -28,7 +28,6 @@ import javafxapp.model.BankAccount.BankAccount;
 import javafxapp.model.BankUser.BankUser;
 import javafxapp.model.Util.EnumAccountType;
 import javafxapp.model.Util.EnumHierarchy;
-import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -84,9 +83,15 @@ public class FXMLCatalogoController implements Initializable {
     
     @FXML
     private Button btnDoTransfer;
+
+    @FXML
+    private Button btnAddOrRemoveAccount;
     
     @FXML
     private Label labelInfo;
+    
+    @FXML
+    private Label lblAccountNumber;
 
     @FXML
     private TextField txtFieldNome;
@@ -123,14 +128,16 @@ public class FXMLCatalogoController implements Initializable {
         assert btnNew != null : "fx:id=\"btnNew\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert btnEdit != null : "fx:id=\"btnEdit\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert btnRemove != null : "fx:id=\"btnRemove\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert labelInfo != null : "fx:id=\"labelHierarchy\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert labelInfo != null : "fx:id=\"labelInfo\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert btnCleanFields != null : "fx:id=\"btnCleanFields\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert comboBoxAccountSelect != null : "fx:id=\"comboBoxAccountSelect\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert txtAreaStatements != null : "fx:id=\"txtAreaStatements\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert txtFieldBalance != null : "fx:id=\"passFieldBalance\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert txtFieldTransferAccount != null : "fx:id=\"txtFieldTransferAccount\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
         assert txtFieldTransferValue != null : "fx:id=\"txtFieldTransferValue\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
-        assert btnDoTransfer != null : "fx:id=\"btnDoTranfer\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert btnDoTransfer != null : "fx:id=\"btnDoTransfer\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert txtFieldBalance != null : "fx:id=\"txtFieldBalance\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert lblAccountNumber != null : "fx:id=\"lblAccountNumber\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
+        assert btnAddOrRemoveAccount != null : "fx:id=\"btnAddOrRemoveAccount\" was not injected: check your FXML file 'FXMLCatalogo.fxml'.";
 
         
         columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -146,7 +153,8 @@ public class FXMLCatalogoController implements Initializable {
             TableRow<BankUser> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 
-                if (event.getClickCount() == 1 && (! row.isEmpty()) && MouseButton.PRIMARY.equals(event.getButton())) {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) && 
+                        MouseButton.PRIMARY.equals(event.getButton())) {
                     BankUser rowUser = row.getItem();
                     System.out.println("One click on: "+rowUser.getName());
                                         
@@ -182,6 +190,12 @@ public class FXMLCatalogoController implements Initializable {
         return clients;
     }    
     
+    
+    @FXML
+    void handleAddOrRemoveAccount(ActionEvent event) {
+        System.out.println("TODO: IMPLEMENTAR....");
+    }
+
     
     /**
      * Called when the user clicks on the delete button.
@@ -300,8 +314,8 @@ public class FXMLCatalogoController implements Initializable {
                 if(account.getAccountNumber().equals(accountInputed)) {
                     user.deposit(accountInputed, valueInputed);
                     clients.set(IndexCounter, user);
-                    IndexCounter++;
                 }
+                IndexCounter++;
             }
         }
     }
@@ -315,7 +329,6 @@ public class FXMLCatalogoController implements Initializable {
             txtFieldNome.setText(tableBankUser.getColumns().get(0).getCellData(0).toString());
             txtFieldCpf.setText(tableBankUser.getColumns().get(1).getCellData(0).toString());
             labelInfo.setText(tableBankUser.getColumns().get(3).getCellData(0).toString());
-
 
             ObservableList<String> options = FXCollections.observableArrayList(
                 EnumHierarchy.CLIENT.toString(),
@@ -333,12 +346,13 @@ public class FXMLCatalogoController implements Initializable {
             );
             comboBoxAccountSelect.getItems().addAll(options2);
             comboBoxAccountSelect.setValue(user.getAccountList().get(0).toString());
+            lblAccountNumber.setText(user.getAccountList().get(0).getAccountNumber());
 
             txtFieldNome.setText(user.getName());
             txtFieldCpf.setText(user.getCpf());
             passFieldPassword.setText(user.getPassword());
             this.inflateStatements(user);
-
+            
             labelInfo.setText("Utilize os botões 'Editar', 'Remover', 'Limpar Campos' e 'Novo' \n para editar a lista de clientes.");
 
         } else {
@@ -362,16 +376,20 @@ public class FXMLCatalogoController implements Initializable {
             user.getAccountList().get(0).toString()
         );
         comboBoxAccountSelect.setValue(options2.get(0));
+        lblAccountNumber.setText(user.getAccountList().get(0).getAccountNumber());
 
+        this.inflateStatements(user);
 
         labelInfo.setText(user.getHierarchyAsString());
     }
 
     private void inflateStatements(BankUser user) {
         Double balance = 0.00;
+        
+        txtAreaStatements.clear();
         for(BankAccount account: user.getAccountList()) {
             for(Double statement : account.getExtract()) {
-                txtAreaStatements.setText(statement.toString() + "\n");
+                txtAreaStatements.appendText(statement.toString() + "\n");
                 balance += statement;
             }
         }
