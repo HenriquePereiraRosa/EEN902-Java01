@@ -347,19 +347,16 @@ public class FXMLCatalogoController implements Initializable {
         String accountInputed = txtFieldTransferAccount.getText();
         Double valueInputed = Double.parseDouble(txtFieldTransferValue.getText()); //TODO: Validate
         int IndexCounter = 0;
-        List<BankUser> list = clients.subList(0, clients.size());
 
-        for(BankUser user : list) {
+        for(BankUser user : clients.sorted()) {
             for(BankAccount account : user.getAccountList()) { 
                 if(account.getAccountNumber().equals(accountInputed)) {
                     user.deposit(accountInputed, valueInputed);
-                    list.set(IndexCounter, user);
-                    IndexCounter++;
+                    clients.set(IndexCounter, user);
                 }
-                IndexCounter++;
             }
+            IndexCounter++;
         }
-        clients.setAll(list);
     }
 
 
