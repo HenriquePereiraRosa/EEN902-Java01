@@ -23,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafxapp.JavaFXApp;
 import javafxapp.model.BankAccount.BankAccount;
 import javafxapp.model.BankUser.BankUser;
@@ -192,18 +193,18 @@ public class FXMLCatalogoController implements Initializable {
     
     
     @FXML
-    void handleAddOrRemoveAccount(ActionEvent event) {
+    void handleAddOrRemoveAccount(MouseEvent event) {
         
         boolean hasAccount = false;
         BankUser user = tableBankUser.getSelectionModel().getSelectedItem();
         BankAccount account = new BankAccount();
         
         if(user != null) {
-        
             for(BankAccount accountIterator : user.getAccountList()) {
                 if(accountIterator.toString().equals(comboBoxAccountSelect.getValue())) {
                     hasAccount = true;
                     account = accountIterator;
+                    break;
                 }
             }
 
@@ -211,13 +212,15 @@ public class FXMLCatalogoController implements Initializable {
                 labelInfo.setText("Cliente já possui esse tipo de conta.");
                 labelAccountNumber.setText(account.getAccountNumber());
             } else {
-                user.addAccount(new BankAccount(
+                account = new BankAccount(
                         this.createAccountNumber(),
                         comboBoxAccountSelect.getSelectionModel().getSelectedIndex(),
-                        0.0));
+                        0.0);
+                user.addAccount(account);
                 clients.set(
                         tableBankUser.getSelectionModel().getSelectedIndex(),
                         user);
+                labelAccountNumber.setText(account.getAccountNumber());
                 labelInfo.setText("Conta criada com sucesso.");
             }
         } else {
@@ -412,9 +415,11 @@ public class FXMLCatalogoController implements Initializable {
         
         txtAreaStatements.clear();
         for(BankAccount account: user.getAccountList()) {
-            for(Double statement : account.getExtract()) {
-                txtAreaStatements.appendText(statement.toString() + "\n");
-                balance += statement;
+            if(account.toString().equals(comboBoxAccountSelect.getValue())) {
+                for(Double statement : account.getExtract()) {
+                    txtAreaStatements.appendText(statement.toString() + "\n");
+                    balance += statement;
+                }
             }
         }
         txtFieldBalance.setText(balance.toString());

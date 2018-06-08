@@ -87,9 +87,9 @@
                   <TextField fx:id="txtFieldTransferValue" layoutX="301.0" layoutY="392.0" />
                   <Button fx:id="btnDoTransfer" layoutX="351.0" layoutY="439.0" mnemonicParsing="false" onAction="#doTransfer" prefHeight="25.0" prefWidth="99.0" text="Transferir" />
                   <TextField fx:id="txtFieldBalance" alignment="CENTER_RIGHT" layoutX="53.0" layoutY="404.0" prefHeight="25.0" prefWidth="106.0" promptText="Balance" />
-                  <Label contentDisplay="CENTER" layoutX="166.0" layoutY="121.0" prefHeight="17.0" prefWidth="70.0" text="Num. Conta:" />
-                  <Label fx:id="labelAccountNumber" contentDisplay="CENTER" layoutX="237.0" layoutY="121.0" prefHeight="17.0" prefWidth="33.0" text="NUM" />
-                  <Button fx:id="btnAddOrRemoveAccount" layoutX="282.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleAddOrRemoveAccount" prefHeight="25.0" prefWidth="199.0" text="&lt;- Adicionar ou Remover Conta" />
+                  <Label contentDisplay="CENTER" layoutX="166.0" layoutY="121.0" prefHeight="17.0" prefWidth="21.0" text="Nº:" />
+                  <Label fx:id="labelAccountNumber" contentDisplay="CENTER" layoutX="187.0" layoutY="121.0" prefHeight="17.0" prefWidth="33.0" text="NUM" />
+                  <Button fx:id="btnAddOrRemoveAccount" layoutX="273.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#handleAddOrRemoveAccount" prefHeight="25.0" prefWidth="206.0" text="&lt;-   Adicionar ou Remover Conta" />
                   </children></AnchorPane>
         </items>
       </SplitPane>
