@@ -163,7 +163,7 @@ public class FXMLCatalogoController implements Initializable {
                 
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     BankUser rowUser = row.getItem();
-                    System.out.println("Double click on: "+rowUser.getName());
+                    System.out.println("Double click on: " + rowUser.getName());
                 }
             });
             return row ;
@@ -343,17 +343,19 @@ public class FXMLCatalogoController implements Initializable {
         String accountInputed = txtFieldTransferAccount.getText();
         Double valueInputed = Double.parseDouble(txtFieldTransferValue.getText()); //TODO: Validate
         int IndexCounter = 0;
-        List<BankUser> list = tableBankUser.getItems();
+        List<BankUser> list = clients.subList(0, clients.size());
 
         for(BankUser user : list) {
             for(BankAccount account : user.getAccountList()) { 
                 if(account.getAccountNumber().equals(accountInputed)) {
                     user.deposit(accountInputed, valueInputed);
-                    clients.set(IndexCounter, user);
+                    list.set(IndexCounter, user);
+                    IndexCounter++;
                 }
                 IndexCounter++;
             }
         }
+        clients.setAll(list);
     }
 
 
