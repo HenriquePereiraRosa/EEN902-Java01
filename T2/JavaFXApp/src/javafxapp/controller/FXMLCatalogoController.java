@@ -228,6 +228,7 @@ public class FXMLCatalogoController implements Initializable {
         }
     }
     
+    
     @FXML
     void handleComboBoxAccountSelect(ActionEvent event) {
         BankUser user = tableBankUser.getSelectionModel().getSelectedItem();
@@ -436,7 +437,7 @@ public class FXMLCatalogoController implements Initializable {
                 }
             }
         }
-        accountNumber = String.format("%4s", String.valueOf(numberMax));
+        accountNumber = String.format("%4s", String.valueOf(numberMax + 1));
         return accountNumber.replaceAll(" ", "0");
     }
 }

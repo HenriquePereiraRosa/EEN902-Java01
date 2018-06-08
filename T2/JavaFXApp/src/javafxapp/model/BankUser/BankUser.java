@@ -200,11 +200,7 @@ public class BankUser {
     }
     
     public void addAccount(BankAccount account) {
-        List<BankAccount> list = new ArrayList<>(); 
-        list = this.getAccountList();
-        list.add(account);
-        ObservableList<BankAccount> observableList = FXCollections.observableArrayList(list);
-        this.accounts.addAll(observableList);
+        this.accounts.add(account);
     }
     
     public boolean removeAccount(BankAccount account) {
