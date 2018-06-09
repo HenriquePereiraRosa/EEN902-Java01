@@ -343,16 +343,16 @@ public class FXMLCatalogoController implements Initializable {
      */
     @FXML
     private void doTransfer() {
-        BankUser userTemp;
         String accountInputed = txtFieldTransferAccount.getText();
         Double valueInputed = Double.parseDouble(txtFieldTransferValue.getText()); //TODO: Validate
         int IndexCounter = 0;
 
-        for(BankUser user : clients.sorted()) {
+        for(BankUser user : tableBankUser.getItems()) {
             for(BankAccount account : user.getAccountList()) { 
                 if(account.getAccountNumber().equals(accountInputed)) {
                     user.deposit(accountInputed, valueInputed);
                     clients.set(IndexCounter, user);
+                    break;
                 }
             }
             IndexCounter++;
